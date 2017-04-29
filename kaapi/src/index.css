@@ -1,3 +1,13 @@
+@import 'normalize.css';
+
+html {
+  font-size: 20px;
+}
+
+input, textarea, select, button {
+  font-size: 1rem;
+}
+
 body {
   margin: 0;
   padding: 0;
