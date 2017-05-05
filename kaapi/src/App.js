@@ -1,10 +1,6 @@
-import React from 'react';
+import React from 'react'
+import {Provider} from 'react-redux'
+import store from './store'
+import FriendListPage from './friends/components/FriendListPage'
 
-import FriendList from './friends/components/FriendList'
-
-export default () => (
-    <div>
-        <h1>Coffee</h1>
-        <FriendList/>
-    </div>
-)
+export default () => <Provider store={store}><FriendListPage/></Provider>

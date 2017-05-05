@@ -1,15 +1,14 @@
 import React from 'react'
 import {shallow} from 'enzyme'
-
-import FriendListView from './FriendListView'
-import FriendListItem from './FriendListItem'
+import FriendListView from './FriendListPresenter'
+import FriendListItem from '../FriendListItem'
 
 describe('FriendListView', () => {
 
     const friends = [
-        {id: 1, name: 'John Ryan'},
-        {id: 2, name: 'Zach Gershman'},
-        {id: 3, name: 'Ian'}
+        {id: 1, name: 'Ian Ornstein'},
+        {id: 2, name: 'Zachary Gershman'},
+        {id: 3, name: 'John Ryan'}
     ]
 
     describe('when passed a list of friends', () => {

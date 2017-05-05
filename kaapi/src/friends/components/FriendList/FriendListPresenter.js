@@ -1,7 +1,7 @@
 import React from 'react'
 
-import FriendListItem from './FriendListItem'
-import styles from './FriendListView.css'
+import FriendListItem from '../FriendListItem'
+import styles from './FriendListPresenter.css'
 
 export default ({friends}) => (
     <ul className={styles.list}>
