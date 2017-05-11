@@ -1,4 +1,4 @@
-package io.leonhardt.latte.friends
+package io.leonhardt.latte.friend
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup
+import java.util.*
 
 @RunWith(SpringJUnit4ClassRunner::class)
 class FriendGetAllControllerTest {
@@ -20,10 +21,15 @@ class FriendGetAllControllerTest {
 
     @Test
     fun getAll() {
-        val friends = listOf(Friend(), Friend(), Friend())
+        val friends = listOf(
+                Friend(UUID.randomUUID(), "Thomas Shouler"),
+                Friend(UUID.randomUUID(), "Alex Thornburg"),
+                Friend(UUID.randomUUID(), "Rodolfo Sanchez")
+        )
+
         `when`(friendGetAllService.getAll()).thenReturn(friends)
 
-        mockMvc.perform(get("/friends"))
+        mockMvc.perform(get("/friend"))
                 .andExpect(status().isOk)
                 .andExpect(jsonPath("$.length()").value(3))
     }

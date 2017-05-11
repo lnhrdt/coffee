@@ -9,7 +9,7 @@ beforeEach(() => jest.resetAllMocks())
 
 describe('friendsLoad', () => {
 
-    describe('when friendsGet returns friends', () => {
+    describe('when friendsGet returns friend', () => {
         beforeEach(() => {
             friendsGet.mockReturnValueOnce(Promise.resolve('mock friendsGet'))
             friendsReceived.mockReturnValueOnce('mock friendsReceived')

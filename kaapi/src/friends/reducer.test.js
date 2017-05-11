@@ -1,7 +1,7 @@
 import reducer from './reducer'
 import friendsReceived from './actions/friendsReceived'
 
-describe('friends reducer', () => {
+describe('friend reducer', () => {
   it('sets up initial state', () => {
     const outputState = reducer()
     expect(outputState).toEqual([])
@@ -14,7 +14,7 @@ describe('friends reducer', () => {
   })
 
   describe('when friendsReceived is dispatched', () => {
-    it('should set output state to the friends', () => {
+    it('should set output state to the friend', () => {
       const outputState = reducer([{id: 1}], friendsReceived([{id: 2}, {id: 3}]))
       expect(outputState).not.toContainEqual({id: 1})
       expect(outputState).toContainEqual({id: 2})
