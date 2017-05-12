@@ -43,7 +43,10 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
     compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+    compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310')
+    compile('com.fasterxml.jackson.module:jackson-module-kotlin')
     runtime('org.springframework.boot:spring-boot-devtools')
     runtime('mysql:mysql-connector-java')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('com.nhaarman:mockito-kotlin:1.4.0')
 }

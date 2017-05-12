@@ -1,22 +1,24 @@
 package io.leonhardt.latte.friends
 
-import org.junit.Assert
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.whenever
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.theInstance
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
-import org.mockito.Mockito.mock
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
+import org.springframework.test.context.junit4.SpringRunner
 
-@RunWith(SpringJUnit4ClassRunner::class)
+@RunWith(SpringRunner::class)
 class FriendGetAllServiceTest {
-    private val friendRepository = mock(FriendRepository::class.java)
-    private val subject: FriendGetAllService = FriendGetAllService(friendRepository)
+
+    val friendRepository: FriendRepository = mock()
+    val subject: FriendGetAllService = FriendGetAllService(friendRepository)
 
     @Test
     fun getAll() {
-        val friends = listOf(Friend(name = "Mark Ducommun"))
-        Mockito.`when`(friendRepository.findAll()).thenReturn(friends)
+        val friends = listOf(Friend(name = "Mark Ducommun", coffees = emptyList()))
+        whenever(friendRepository.findAll()).thenReturn(friends)
 
-        Assert.assertSame(friends, subject.getAll())
+        assertThat(subject.getAll(), theInstance(friends))
     }
 }

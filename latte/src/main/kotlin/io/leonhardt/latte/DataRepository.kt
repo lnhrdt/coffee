@@ -5,16 +5,16 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 abstract class DataRepository<dataType, entityType, idType>(
         private val dataTranslator: Translator<dataType, entityType>,
-        private val repository: JpaRepository<entityType, idType>,
-        private val entityTranslator: Translator<entityType, dataType>
+        private val entityTranslator: Translator<entityType, dataType>,
+        private val entityRepository: JpaRepository<entityType, idType>
 ) {
-    fun findOne(input: Example<dataType>): dataType = repository.findOne(Example.of(input.probe.toEntityType())).toDataType()
-    fun findAll(): List<dataType> = repository.findAll().map { it.toDataType() }
+    open fun findOne(input: Example<dataType>): dataType = entityRepository.findOne(Example.of(input.probe.toEntityType())).toDataType()
+    open fun findAll(): List<dataType> = entityRepository.findAll().map { it.toDataType() }
 
-    fun save(input: dataType): dataType = repository.save(input.toEntityType()).toDataType()
-    fun saveAll(input: Iterable<dataType>): List<dataType> = repository.saveAll(input.map { it.toEntityType() }).map { it.toDataType() }
+    open fun save(input: dataType): dataType = entityRepository.save(input.toEntityType()).toDataType()
+    open fun saveAll(input: Iterable<dataType>): List<dataType> = entityRepository.saveAll(input.map { it.toEntityType() }).map { it.toDataType() }
 
-    fun deleteAll(): Unit = repository.deleteAll()
+    open fun deleteAll(): Unit = entityRepository.deleteAll()
 
     private fun dataType.toEntityType(): entityType = dataTranslator.translate(this)
     private fun entityType.toDataType(): dataType = entityTranslator.translate(this)

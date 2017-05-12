@@ -4,5 +4,5 @@ import org.springframework.stereotype.Service
 
 @Service
 class FriendGetAllService(val friendRepository: FriendRepository) {
-    fun getAll(): Iterable<Friend> = friendRepository.findAll()
+    fun getAll(): List<Friend> = friendRepository.findAll()
 }

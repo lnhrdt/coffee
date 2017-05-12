@@ -1,32 +1,32 @@
 package io.leonhardt.latte.friends
 
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.whenever
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.mock
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
+import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup
 
-@RunWith(SpringJUnit4ClassRunner::class)
+@RunWith(SpringRunner::class)
 class FriendGetAllControllerTest {
 
-    private val friendGetAllService: FriendGetAllService = mock(FriendGetAllService::class.java)
+    private val friendGetAllService: FriendGetAllService = mock()
     private val subject = FriendGetAllController(friendGetAllService)
     private val mockMvc: MockMvc = standaloneSetup(subject).build()
 
     @Test
     fun getAll() {
         val friends = listOf(
-                Friend(name = "Thomas Shouler"),
-                Friend(name = "Alex Thornburg"),
-                Friend(name = "Rodolfo Sanchez")
+                Friend(name = "Thomas Shouler", coffees = emptyList()),
+                Friend(name = "Alex Thornburg", coffees = emptyList()),
+                Friend(name = "Rodolfo Sanchez", coffees = emptyList())
         )
 
-        `when`(friendGetAllService.getAll()).thenReturn(friends)
+        whenever(friendGetAllService.getAll()).thenReturn(friends)
 
         mockMvc.perform(get("/friends"))
                 .andExpect(status().isOk)
