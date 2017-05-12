@@ -12,7 +12,22 @@ describe('friendsGet', () => {
     ]
 
     describe('when the API returns friends', () => {
-        beforeEach(() => fetchMock.getOnce('/friends', friends))
+        beforeEach(() => fetchMock.mock({
+            method: 'GET',
+            matcher: '/friends',
+            response: {
+                body: friends,
+                status: 200
+            }
+        }))
+
+        it('should fetch friends from the API', () => {
+            return friendsGet().then(() => {
+                expect(fetchMock.lastUrl()).toEqual('/friends')
+                expect(fetchMock.lastOptions().method).toEqual('GET')
+                expect(fetchMock.lastOptions().headers).toEqual({'Content-Type': 'application/json'})
+            })
+        })
 
         it('should return friends from the API', () => {
             return friendsGet().then((result) => {

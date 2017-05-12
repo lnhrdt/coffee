@@ -10,7 +10,8 @@ export default (WrappedComponent) => {
         }
 
         render() {
-            return <WrappedComponent friends={this.props.friends} />
+            return <WrappedComponent friends={this.props.friends}
+                                     recordCoffee={this.props.recordCoffee} />
         }
     }
 }

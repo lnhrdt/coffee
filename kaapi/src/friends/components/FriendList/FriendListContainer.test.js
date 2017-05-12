@@ -9,7 +9,7 @@ describe('FriendListContainer', () => {
         {id: 3, name: 'John Ryan'}
     ]
 
-    const mockProps = {friends, friendsLoad: jest.fn()}
+    const mockProps = {friends, friendsLoad: jest.fn(), recordCoffee: jest.fn()}
 
     it('should call friendsLoad on mount', () => {
         renderDecorator(FriendListContainer, mockProps)
@@ -20,6 +20,12 @@ describe('FriendListContainer', () => {
     it('should render WrappedComponent with friends', () => {
         const {subject, mockWrappedComponent} = renderDecorator(FriendListContainer, mockProps)
 
-        expect(subject.find(mockWrappedComponent).props().friends).toEqual(friends)
+        expect(subject.find(mockWrappedComponent).props().friends).toEqual(mockProps.friends)
+    })
+
+    it('should pass recordCoffee to WrappedComponent', () => {
+        const {subject, mockWrappedComponent} = renderDecorator(FriendListContainer, mockProps)
+
+        expect(subject.find(mockWrappedComponent).props().recordCoffee).toEqual(mockProps.recordCoffee)
     })
 })
