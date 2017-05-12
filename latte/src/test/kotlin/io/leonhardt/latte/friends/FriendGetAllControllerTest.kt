@@ -20,7 +20,12 @@ class FriendGetAllControllerTest {
 
     @Test
     fun getAll() {
-        val friends = listOf(Friend(), Friend(), Friend())
+        val friends = listOf(
+                Friend(name = "Thomas Shouler"),
+                Friend(name = "Alex Thornburg"),
+                Friend(name = "Rodolfo Sanchez")
+        )
+
         `when`(friendGetAllService.getAll()).thenReturn(friends)
 
         mockMvc.perform(get("/friends"))

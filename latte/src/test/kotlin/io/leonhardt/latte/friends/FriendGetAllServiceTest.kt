@@ -14,7 +14,7 @@ class FriendGetAllServiceTest {
 
     @Test
     fun getAll() {
-        val friends = listOf(Friend())
+        val friends = listOf(Friend(name = "Mark Ducommun"))
         Mockito.`when`(friendRepository.findAll()).thenReturn(friends)
 
         Assert.assertSame(friends, subject.getAll())
