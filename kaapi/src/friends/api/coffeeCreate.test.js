@@ -7,15 +7,15 @@ describe('coffeeCreate', () => {
 
     beforeEach(() => fetchMock.mock({
         method: 'POST',
-        matcher: '/coffees',
+        matcher: '/api/coffees',
         response: {
             status: 201
         }
     }))
 
-    it('should POST to /coffees', () => {
+    it('should POST to /api/coffees', () => {
         return coffeeCreate({friendId: 'abc123'}).then(() => {
-            expect(fetchMock.lastUrl()).toEqual('/coffees')
+            expect(fetchMock.lastUrl()).toEqual('/api/coffees')
             expect(fetchMock.lastOptions().method).toEqual('POST')
             expect(fetchMock.lastOptions().headers).toEqual({'Content-Type': 'application/json'})
             const requestBody = JSON.parse(fetchMock.lastOptions().body)

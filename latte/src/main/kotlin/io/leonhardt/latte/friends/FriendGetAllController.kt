@@ -5,6 +5,6 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class FriendGetAllController(val friendGetAllService: FriendGetAllService) {
-    @GetMapping("/friends")
+    @GetMapping("/api/friends")
     fun getAll(): Iterable<Friend> = friendGetAllService.getAll()
 }

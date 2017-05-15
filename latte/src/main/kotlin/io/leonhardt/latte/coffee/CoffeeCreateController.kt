@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class CoffeeCreateController(val coffeeService: CoffeeService) {
-    @PostMapping("/coffees")
+    @PostMapping("/api/coffees")
     fun create(@RequestBody createRequest: CoffeeService.CreateRequest): ResponseEntity<Unit> {
         coffeeService.create(createRequest)
         return ResponseEntity.ok(Unit)

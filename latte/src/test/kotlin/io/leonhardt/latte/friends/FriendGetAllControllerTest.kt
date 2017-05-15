@@ -28,7 +28,7 @@ class FriendGetAllControllerTest {
 
         whenever(friendGetAllService.getAll()).thenReturn(friends)
 
-        mockMvc.perform(get("/friends"))
+        mockMvc.perform(get("/api/friends"))
                 .andExpect(status().isOk)
                 .andExpect(jsonPath("$.length()").value(3))
     }

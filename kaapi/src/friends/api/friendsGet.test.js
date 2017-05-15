@@ -14,7 +14,7 @@ describe('friendsGet', () => {
     describe('when the API returns friends', () => {
         beforeEach(() => fetchMock.mock({
             method: 'GET',
-            matcher: '/friends',
+            matcher: '/api/friends',
             response: {
                 body: friends,
                 status: 200
@@ -23,7 +23,7 @@ describe('friendsGet', () => {
 
         it('should fetch friends from the API', () => {
             return friendsGet().then(() => {
-                expect(fetchMock.lastUrl()).toEqual('/friends')
+                expect(fetchMock.lastUrl()).toEqual('/api/friends')
                 expect(fetchMock.lastOptions().method).toEqual('GET')
                 expect(fetchMock.lastOptions().headers).toEqual({'Content-Type': 'application/json'})
             })

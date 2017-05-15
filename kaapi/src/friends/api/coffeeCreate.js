@@ -1,5 +1,5 @@
 export default (body) => {
-    return fetch('/coffees', {
+    return fetch('/api/coffees', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

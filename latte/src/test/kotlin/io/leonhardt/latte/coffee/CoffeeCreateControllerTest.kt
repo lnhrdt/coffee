@@ -27,7 +27,7 @@ class CoffeeCreateControllerTest {
         val givenFriendId = UUID.randomUUID()
         val createRequest = CoffeeService.CreateRequest(friendId = givenFriendId)
 
-        mockMvc.perform(post("/coffees")
+        mockMvc.perform(post("/api/coffees")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonBody(createRequest)))
                 .andExpect(status().isOk)

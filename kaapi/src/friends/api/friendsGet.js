@@ -1,5 +1,5 @@
 export default () => {
-    return fetch('/friends', {
+    return fetch('/api/friends', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
