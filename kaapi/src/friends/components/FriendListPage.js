@@ -1,9 +1,6 @@
-import React from 'react'
-import FriendList from './FriendList'
+import React from "react"
+import FriendList from "./FriendList"
 
-export default () => (
-    <div>
-        <h1>Coffee</h1>
-        <FriendList/>
-    </div>
-)
+import Card from '../../layout/Card'
+
+export default () => <Card><FriendList/></Card>

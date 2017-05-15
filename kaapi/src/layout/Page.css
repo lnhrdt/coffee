@@ -1,0 +1,18 @@
+.page {
+    min-height: 100vh;
+    background-color: lightsteelblue;
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 720px;
+}
+

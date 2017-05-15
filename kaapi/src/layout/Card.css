@@ -1,0 +1,9 @@
+.card {
+    background-color: azure;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.card:last-child {
+    margin-bottom: 0;
+}

@@ -5,9 +5,15 @@
 }
 
 .item {
-    margin-bottom: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: solid thin lightsteelblue;
+}
+
+.item:first-child {
+    padding-top: 0;
 }
 
 .item:last-child {
-    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
 }
