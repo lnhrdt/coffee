@@ -1,9 +1,9 @@
 import React from 'react'
 import {shallow} from 'enzyme'
-import FriendListView from './FriendListPresenter'
+import FriendListPresenter from './FriendListPresenter'
 import FriendListItem from '../FriendListItem'
 
-describe('FriendListView', () => {
+describe('FriendListPresenter', () => {
 
     const mockProps = {
         friends: [
@@ -16,7 +16,7 @@ describe('FriendListView', () => {
 
     describe('when passed a list of friends', () => {
         it('should render each friends', () => {
-            const subject = shallow(<FriendListView {...mockProps}/>)
+            const subject = shallow(<FriendListPresenter {...mockProps}/>)
 
             expect(subject.find(FriendListItem)).toHaveLength(3)
             expect(subject.find(FriendListItem).at(0).props().friend).toBe(mockProps.friends[0])
