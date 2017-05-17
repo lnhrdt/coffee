@@ -1,15 +1,23 @@
 import React from 'react'
 import {shallow} from 'enzyme'
 import FriendAdderPresenter from './FriendAdderPresenter'
+import Button from '../../../layout/Button'
 
 describe('FriendAdderView', () => {
 
     const mockProps = {
         friendAdd: jest.fn(),
         friendNameChange: jest.fn(),
-        submitting: false,
         friendName: 'Arjun Shah'
     }
+
+    it('should render a submit button', () => {
+        const subject = shallow(<FriendAdderPresenter {...mockProps}/>)
+        const button = subject.find(Button)
+
+        expect(button.prop('action')).toEqual('Add')
+        expect(button.prop('clickHandler')).toEqual(mockProps.friendAdd)
+    })
 
     describe('when component loads', () => {
         const subject = shallow(<FriendAdderPresenter {...mockProps}/>)
@@ -25,41 +33,23 @@ describe('FriendAdderView', () => {
                 expect(mockProps.friendNameChange).toHaveBeenCalledWith({'target': {'value': 'Prity Patel'}})
             })
         })
-
-        describe('when button is clicked', () => {
-            beforeEach(() => subject.find('button').simulate('click'))
-
-            it('should call friendAdd', () => {
-                expect(mockProps.friendAdd).toHaveBeenCalled()
-            })
-        })
     })
 
     describe('when submitting=false', () => {
         beforeEach(() => mockProps.submitting = false)
 
-        it('should render button enabled', () => {
+        it('should render input enabled', () => {
             const subject = shallow(<FriendAdderPresenter {...mockProps}/>)
-            expect(subject.find('button').prop('disabled')).toBeFalsy()
-        })
-
-        it('should render with text Add', () => {
-            const subject = shallow(<FriendAdderPresenter {...mockProps}/>)
-            expect(subject.find('button').text()).toContain('Add')
+            expect(subject.find('input').prop('disabled')).toBeFalsy()
         })
     })
 
     describe('when submitting=true', () => {
         beforeEach(() => mockProps.submitting = true)
 
-        it('should render button disabled', () => {
+        it('should render input disabled', () => {
             const subject = shallow(<FriendAdderPresenter {...mockProps}/>)
-            expect(subject.find('button').prop('disabled')).toBeTruthy()
-        })
-
-        it('should render with text Submitting', () => {
-            const subject = shallow(<FriendAdderPresenter {...mockProps}/>)
-            expect(subject.find('button').text()).toContain('Submitting')
+            expect(subject.find('input').prop('disabled')).toBeTruthy()
         })
     })
 })

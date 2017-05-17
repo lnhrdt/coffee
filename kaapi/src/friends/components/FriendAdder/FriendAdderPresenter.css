@@ -3,18 +3,6 @@
     overflow: hidden;
 }
 
-.button {
-    padding: 0.25rem;
-    background-color: lightsteelblue;
-    border: 1px solid transparent;
-    cursor: pointer;
-    transition: background-color 0.25s;
-}
-
-.button:hover {
-    background-color: #8897b0;
-}
-
 .input {
     padding: 0.25rem;
     transition: box-shadow 0.25s, border-color 0.25s;

@@ -1,8 +1,8 @@
 import React from 'react'
 import {shallow} from 'enzyme'
 import moment from 'moment'
-
 import FriendListItem from './FriendListItem'
+import Button from '../../layout/Button'
 
 describe('FriendListItem', () => {
 
@@ -17,12 +17,23 @@ describe('FriendListItem', () => {
         expect(subject.text()).toContain(mockProps.friend.name)
     })
 
-    describe('when the button is clicked', () => {
-        it('should call recordCoffee', () => {
+    describe('rendering the submit button', () => {
+        it('should pass actions', () => {
+            const subject = shallow(<FriendListItem {...mockProps}/>)
+            const button = subject.find(Button)
+
+            expect(button.prop('action')).toBeDefined()
+
+            // TODO: once we can import SVG as a component with svg-react-loader
+            // https://github.com/kitze/custom-react-scripts/issues/59
+            // expect(button.prop('action')).toEqual(svg)
+        })
+
+        it('should pass a clickHandler that calls recordCoffee with friend', () => {
             const subject = shallow(<FriendListItem {...mockProps}/>)
 
             expect(mockProps.recordCoffee).not.toHaveBeenCalled()
-            subject.find('button').simulate('click')
+            subject.find(Button).prop('clickHandler')()
             expect(mockProps.recordCoffee).toHaveBeenCalledWith(mockProps.friend)
         })
     })

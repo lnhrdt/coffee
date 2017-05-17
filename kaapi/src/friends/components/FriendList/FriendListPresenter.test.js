@@ -28,4 +28,13 @@ describe('FriendListPresenter', () => {
             expect(subject.find(FriendListItem).at(2).props().recordCoffee).toBe(mockProps.recordCoffee)
         })
     })
+
+    describe('when passed an empty list of friends', () => {
+        it('should not render a list', () => {
+            mockProps.friends = []
+            const subject = shallow(<FriendListPresenter {...mockProps}/>)
+
+            expect(subject.find('ul').exists()).toBe(false)
+        })
+    })
 })

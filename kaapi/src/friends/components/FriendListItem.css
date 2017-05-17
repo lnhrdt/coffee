@@ -18,32 +18,11 @@
     padding: 0 0.5rem;
 }
 
-.coffeeIcon {
-    flex-shrink: 0;
-    width: 1rem;
-}
-
 .action {
     flex-grow: 0;
     padding: 0 0.5rem;
 }
 
-.button {
-    padding: 0.25rem;
-    background-color: lightsteelblue;
-    border: 1px solid transparent;
-    cursor: pointer;
-    transition: background-color 0.25s;
-
-    height: 1.5rem;
-    overflow-y: visible;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.button:hover {
-    background-color: #8897b0;
+.icon {
+    width: 1rem;
 }
