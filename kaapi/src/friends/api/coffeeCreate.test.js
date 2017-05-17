@@ -1,7 +1,7 @@
 import fetchMock from 'fetch-mock'
 import coffeeCreate from './coffeeCreate'
 
-beforeEach(() => fetchMock.reset())
+beforeEach(() => fetchMock.restore())
 
 describe('coffeeCreate', () => {
 

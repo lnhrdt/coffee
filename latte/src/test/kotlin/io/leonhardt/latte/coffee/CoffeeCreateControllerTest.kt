@@ -10,6 +10,7 @@ import org.springframework.http.MediaType
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import java.util.*
@@ -31,6 +32,7 @@ class CoffeeCreateControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonBody(createRequest)))
                 .andExpect(status().isOk)
+                .andExpect(jsonPath("$.length()").value(0))
 
         verify(coffeeService).create(argForWhich { friendId == givenFriendId })
     }

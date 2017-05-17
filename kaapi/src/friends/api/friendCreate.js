@@ -1,3 +1,5 @@
+import parseResponse from './parseResponse'
+
 export default (body) => {
     return fetch('/api/friends', {
         method: 'POST',
@@ -5,5 +7,5 @@ export default (body) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(body)
-    })
+    }).then(parseResponse)
 }

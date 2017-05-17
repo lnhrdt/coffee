@@ -1,7 +1,7 @@
 import fetchMock from 'fetch-mock'
 import friendsGet from './friendsGet'
 
-beforeEach(() => fetchMock.reset())
+beforeEach(() => fetchMock.restore())
 
 describe('friendsGet', () => {
 
@@ -12,16 +12,16 @@ describe('friendsGet', () => {
     ]
 
     describe('when the API returns friends', () => {
-        beforeEach(() => fetchMock.mock({
-            method: 'GET',
-            matcher: '/api/friends',
-            response: {
-                body: friends,
-                status: 200
-            }
-        }))
-
         it('should fetch friends from the API', () => {
+            fetchMock.mock({
+                method: 'GET',
+                matcher: '/api/friends',
+                response: {
+                    body: {data: friends},
+                    status: 200
+                }
+            })
+
             return friendsGet().then(() => {
                 expect(fetchMock.lastUrl()).toEqual('/api/friends')
                 expect(fetchMock.lastOptions().method).toEqual('GET')
@@ -29,9 +29,23 @@ describe('friendsGet', () => {
             })
         })
 
-        it('should return friends from the API', () => {
-            return friendsGet().then((result) => {
-                expect(result).toEqual(friends)
+        describe('when the responds successfully', () => {
+            beforeEach(() => fetchMock.mock({
+                method: 'GET',
+                matcher: '/api/friends',
+                response: {
+                    body: {data: friends},
+                    status: 200
+                }
+            }))
+
+            it('should return friends from the API', () => {
+                // TODO jest v20
+                // return friendsGet().resolves.toEqual(friends)
+
+                return friendsGet().then((result) => {
+                    expect(result).toEqual(friends)
+                })
             })
         })
     })

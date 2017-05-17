@@ -30,6 +30,6 @@ class FriendGetAllControllerTest {
 
         mockMvc.perform(get("/api/friends"))
                 .andExpect(status().isOk)
-                .andExpect(jsonPath("$.length()").value(3))
+                .andExpect(jsonPath("$.data.length()").value(3))
     }
 }

@@ -8,7 +8,8 @@ export default (WrappedComponent) => {
             super(props)
             this.state = {
                 submitting: false,
-                friendName: ''
+                friendName: '',
+                error: undefined
             }
 
             this.handleFriendAdd = this.handleFriendAdd.bind(this)
@@ -19,20 +20,23 @@ export default (WrappedComponent) => {
             this.setState({submitting: true})
             return this.props.friendAdd(this.state.friendName)
                 .then(() => {
-                    this.setState({submitting: false});
-                    this.setState({friendName: ''});
+                    this.setState({submitting: false, friendName: ''})
+                })
+                .catch(errors => {
+                    this.setState({submitting: false, error: errors.name})
                 })
         }
 
         handleFriendNameChange(event) {
-            this.setState({friendName: event.target.value})
+            this.setState({friendName: event.target.value, error: undefined})
         }
 
         render() {
             return <WrappedComponent friendAdd={this.handleFriendAdd}
                                      friendNameChange={this.handleFriendNameChange}
-                                     submitting={this.state.submitting}
                                      friendName={this.state.friendName}
+                                     submitting={this.state.submitting}
+                                     error={this.state.error}
             />
         }
     }
