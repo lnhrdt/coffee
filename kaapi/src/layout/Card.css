@@ -8,3 +8,11 @@
 .card:last-child {
     margin-bottom: 0;
 }
+
+.card > * {
+    margin-bottom: 1rem;
+}
+
+.card > *:last-child {
+    margin-bottom: 0;
+}

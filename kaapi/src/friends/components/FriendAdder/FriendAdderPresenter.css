@@ -1,0 +1,32 @@
+.adder {
+    display: flex;
+    overflow: hidden;
+}
+
+.button {
+    padding: 0.25rem;
+    background-color: lightsteelblue;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.25s;
+}
+
+.button:hover {
+    background-color: #8897b0;
+}
+
+.input {
+    padding: 0.25rem;
+    transition: box-shadow 0.25s, border-color 0.25s;
+    flex-grow: 1;
+    min-width: 0;
+
+    border: 1px solid lightsteelblue;
+    box-shadow: inset 0 0 4px lightsteelblue, 0 0 0 transparent;
+}
+
+.input:focus {
+    outline: none;
+    border: 1px solid lightsteelblue;
+    box-shadow: inset 0 0 0 transparent, 0 0 4px lightsteelblue;
+}
