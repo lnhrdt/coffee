@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class CoffeeCreateController(val coffeeService: CoffeeService) {
+class CoffeeCreateController(val coffeeCreateService: CoffeeCreateService) {
     @PostMapping("/api/coffees")
-    fun create(@RequestBody request: CoffeeService.Request): APIResult<Coffee> {
-        val createResult = coffeeService.create(request)
+    fun create(@RequestBody request: CoffeeCreateService.Request): APIResult<Coffee> {
+        val createResult = coffeeCreateService.create(request)
         return when (createResult) {
             is Result.Success -> ResponseEntity.ok().body(createResult)
             is Result.Failure -> ResponseEntity.badRequest().body(createResult)

@@ -13,14 +13,14 @@ import java.time.Instant
 import java.util.*
 
 @RunWith(SpringRunner::class)
-class CoffeeServiceTest {
+class CoffeeCreateServiceTest {
 
     val coffeeRepository: CoffeeRepository = mock()
-    val subject: CoffeeService = CoffeeService(coffeeRepository)
+    val subject: CoffeeCreateService = CoffeeCreateService(coffeeRepository)
 
     @Test
     fun create() {
-        val request = CoffeeService.Request(friendId = UUID.randomUUID())
+        val request = CoffeeCreateService.Request(friendId = UUID.randomUUID())
         val savedCoffee = Coffee(id = UUID.randomUUID(), friendId = request.friendId, dateTime = Instant.now())
         whenever(coffeeRepository.save(any())).thenReturn(savedCoffee)
 

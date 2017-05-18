@@ -7,7 +7,7 @@ import java.time.Instant
 import java.util.*
 
 @Service
-class CoffeeService(val coffeeRepository: CoffeeRepository) {
+class CoffeeCreateService(val coffeeRepository: CoffeeRepository) {
     fun create(request: Request): Result<Coffee, Errors> {
         val newCoffee = Coffee(friendId = request.friendId, dateTime = Instant.now())
         val savedCoffee = coffeeRepository.save(newCoffee)
