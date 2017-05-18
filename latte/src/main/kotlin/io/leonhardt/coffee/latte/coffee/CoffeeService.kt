@@ -8,11 +8,11 @@ import java.util.*
 
 @Service
 class CoffeeService(val coffeeRepository: CoffeeRepository) {
-    fun create(createRequest: CreateRequest): Result<Unit, Errors> {
-        val coffee = Coffee(friendId = createRequest.friendId, dateTime = Instant.now())
-        coffeeRepository.save(coffee)
-        return Result.Success(Unit)
+    fun create(request: Request): Result<Coffee, Errors> {
+        val newCoffee = Coffee(friendId = request.friendId, dateTime = Instant.now())
+        val savedCoffee = coffeeRepository.save(newCoffee)
+        return Result.Success(savedCoffee)
     }
 
-    data class CreateRequest(val friendId: UUID)
+    data class Request(val friendId: UUID)
 }

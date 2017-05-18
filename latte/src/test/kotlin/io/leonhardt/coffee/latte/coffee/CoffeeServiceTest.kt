@@ -1,14 +1,15 @@
 package io.leonhardt.coffee.latte.coffee
 
-import com.nhaarman.mockito_kotlin.check
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.*
+import io.leonhardt.coffee.latte.Result
 import io.leonhardt.coffee.latte.support.closeToNow
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.equalTo
+import org.hamcrest.Matchers.theInstance
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.test.context.junit4.SpringRunner
+import java.time.Instant
 import java.util.*
 
 @RunWith(SpringRunner::class)
@@ -19,13 +20,15 @@ class CoffeeServiceTest {
 
     @Test
     fun create() {
-        val givenFriendId = UUID.randomUUID()
-        val createRequest = CoffeeService.CreateRequest(friendId = givenFriendId)
+        val request = CoffeeService.Request(friendId = UUID.randomUUID())
+        val savedCoffee = Coffee(id = UUID.randomUUID(), friendId = request.friendId, dateTime = Instant.now())
+        whenever(coffeeRepository.save(any())).thenReturn(savedCoffee)
 
-        subject.create(createRequest = createRequest)
+        val result = subject.create(request = request) as Result.Success
 
+        assertThat(result.data, theInstance(savedCoffee))
         verify(coffeeRepository).save(check {
-            assertThat(it.friendId, equalTo(givenFriendId))
+            assertThat(it.friendId, equalTo(request.friendId))
             assertThat(it.dateTime, closeToNow())
         })
     }

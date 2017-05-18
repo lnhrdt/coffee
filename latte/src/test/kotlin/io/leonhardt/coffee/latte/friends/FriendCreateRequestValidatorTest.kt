@@ -1,6 +1,5 @@
 package io.leonhardt.coffee.latte.friends
 
-import io.leonhardt.coffee.latte.Errors
 import io.leonhardt.coffee.latte.Result
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.hasEntry

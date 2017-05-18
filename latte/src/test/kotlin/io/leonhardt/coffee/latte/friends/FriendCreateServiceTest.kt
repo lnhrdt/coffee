@@ -8,6 +8,7 @@ import org.hamcrest.Matchers.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.test.context.junit4.SpringRunner
+import java.util.*
 
 @RunWith(SpringRunner::class)
 class FriendCreateServiceTest {
@@ -17,15 +18,15 @@ class FriendCreateServiceTest {
     val subject: FriendCreateService = FriendCreateService(friendRepository, friendCreateRequestValidator)
 
     @Test
-    fun create_whenRequestIsValid() {
+    fun create_whenResultIsSuccess() {
         val request = FriendCreateService.Request(name = "Anna Yu")
-        val friend = Friend(name = request.name, coffees = emptyList())
+        val savedFriend = Friend(id = UUID.randomUUID(), name = request.name, coffees = emptyList())
         whenever(friendCreateRequestValidator.validate(request)).thenReturn(Result.Success(Unit))
-        whenever(friendRepository.save(any())).thenReturn(friend)
+        whenever(friendRepository.save(any())).thenReturn(savedFriend)
 
-        val success = subject.create(request) as Result.Success<Friend, Errors>
+        val success = subject.create(request) as Result.Success
 
-        assertThat(success.data, theInstance(friend))
+        assertThat(success.data, theInstance(savedFriend))
         verify(friendRepository).save(check {
             assertThat(it.name, equalTo(request.name))
             assertThat(it.coffees, empty())
@@ -33,13 +34,14 @@ class FriendCreateServiceTest {
     }
 
     @Test
-    fun create_whenRequestIsNotValid() {
+    fun create_whenResultIsFailure() {
         val request = FriendCreateService.Request(name = "Rodolfo Sanchez")
         val errors = mapOf("name" to "This name is too cool.")
         whenever(friendCreateRequestValidator.validate(request)).thenReturn(Result.Failure(errors))
 
-        val failure = subject.create(request) as Result.Failure<Friend, Errors>
+        val failure = subject.create(request) as Result.Failure
 
         assertThat(failure.errors, theInstance(errors))
+        verify(friendRepository, never()).save(any())
     }
 }
