@@ -1,7 +1,10 @@
 package io.leonhardt.coffee.latte.friends
 
+import io.leonhardt.coffee.latte.Errors
+import io.leonhardt.coffee.latte.Result
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.*
+import org.hamcrest.Matchers.hasEntry
+import org.hamcrest.Matchers.instanceOf
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.test.context.junit4.SpringRunner
@@ -13,15 +16,15 @@ class FriendCreateRequestValidatorTest {
 
     @Test
     fun validate_whenFirstNameIsPresent_returnValid() {
-        val validation: Map<String, String> = subject.validate(FriendCreateService.Request("Angela Chin"))
+        val result = subject.validate(FriendCreateService.Request("Angela Chin"))
 
-        assertThat(validation.isEmpty(), equalTo(true))
+        assertThat(result, instanceOf(Result.Success::class.java))
     }
 
     @Test
     fun validate_whenFirstNameIsEmptyString_returnInvalid() {
-        val validation = subject.validate(FriendCreateService.Request(""))
+        val result = subject.validate(FriendCreateService.Request("")) as Result.Failure
 
-        assertThat(validation, hasEntry("name", "Required"))
+        assertThat(result.errors, hasEntry("name", "Required"))
     }
 }

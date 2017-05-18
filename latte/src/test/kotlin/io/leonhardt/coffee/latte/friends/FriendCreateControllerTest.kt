@@ -2,6 +2,7 @@ package io.leonhardt.coffee.latte.friends
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
+import io.leonhardt.coffee.latte.Result
 import io.leonhardt.coffee.latte.support.jsonBody
 import org.hamcrest.Matchers.*
 import org.junit.Test
@@ -26,7 +27,7 @@ class FriendCreateControllerTest {
     fun create_whenNoErrors_shouldReturnFriend() {
         val friend = Friend(id = UUID.randomUUID(), name = "William Ramsey", coffees = emptyList())
         val request = FriendCreateService.Request(name = "William Ramsey")
-        whenever(friendCreateService.create(request)).thenReturn(FriendCreateService.Response(friend = friend))
+        whenever(friendCreateService.create(request)).thenReturn(Result.Success(friend))
 
         mockMvc.perform(post("/api/friends")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -40,7 +41,7 @@ class FriendCreateControllerTest {
     fun create_whenErrors_shouldReturnErrors() {
         val request = FriendCreateService.Request(name = "William Ramsey")
         val errors = mapOf("mistake" to "you did it wrong")
-        whenever(friendCreateService.create(request)).thenReturn(FriendCreateService.Response(errors = errors))
+        whenever(friendCreateService.create(request)).thenReturn(Result.Failure(errors))
 
         mockMvc.perform(post("/api/friends")
                 .contentType(MediaType.APPLICATION_JSON)
