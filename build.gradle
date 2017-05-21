@@ -1,0 +1,9 @@
+task downloadDependencies {
+    dependsOn ':kaapi:npmInstall'
+    dependsOn ':latte:compileTestJava'
+}
+
+task build {
+    dependsOn ':kaapi:npm_run_build'
+    dependsOn ':latte:assemble'
+}

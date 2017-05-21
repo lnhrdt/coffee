@@ -1,0 +1,13 @@
+applications:
+- name: coffee-kaapi
+  path: ../kaapi/build
+  routes:
+  - route: 1on1.coffee
+  buildpack: staticfile_buildpack
+- name: coffee-latte
+  path: ../latte/build/libs/latte-0.0.1-SNAPSHOT.jar
+  routes:
+  - route: 1on1.coffee/api
+  buildpack: java_buildpack
+  services:
+   - coffee-mysql

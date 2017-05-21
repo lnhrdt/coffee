@@ -1,6 +1,3 @@
-DROP DATABASE IF EXISTS latte;
 DROP DATABASE IF EXISTS latte_test;
-CREATE DATABASE latte;
 CREATE DATABASE latte_test;
-GRANT ALL PRIVILEGES ON latte.* TO 'latte' IDENTIFIED BY 'latte';
 GRANT ALL PRIVILEGES ON latte_test.* TO 'latte_test' IDENTIFIED BY 'latte_test';

@@ -1,0 +1,13 @@
+applications:
+- name: coffee-kaapi
+  path: ../kaapi/build
+  routes:
+  - route: aphelion-coffee-acceptance.cfapps.io
+  buildpack: staticfile_buildpack
+- name: coffee-latte
+  path: ../latte/build/libs/latte-0.0.1-SNAPSHOT.jar
+  routes:
+    - route: aphelion-coffee-acceptance.cfapps.io/api
+  buildpack: java_buildpack
+  services:
+   - coffee-mysql
