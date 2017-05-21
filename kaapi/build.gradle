@@ -2,6 +2,12 @@ plugins {
     id 'com.moowork.node' version '1.1.1'
 }
 
+node {
+    version = '7.10.0'
+    npmVersion = '4.2.0'
+    download = true
+}
+
 npm_test {
     environment 'CI': 'true'
 }
