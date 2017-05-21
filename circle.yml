@@ -24,6 +24,9 @@ checkout:
 dependencies:
   override:
     - ./gradlew downloadDependencies
+  cache_directories:
+    - kaapi/.gradle
+    - kaapi/node_modules
 
 database:
   override:
