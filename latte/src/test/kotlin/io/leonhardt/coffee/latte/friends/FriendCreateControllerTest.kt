@@ -3,7 +3,7 @@ package io.leonhardt.coffee.latte.friends
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import io.leonhardt.coffee.latte.Result
-import io.leonhardt.coffee.latte.support.jsonBody
+import io.leonhardt.coffee.latte.support.asJson
 import org.hamcrest.Matchers.*
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -31,7 +31,7 @@ class FriendCreateControllerTest {
 
         mockMvc.perform(post("/api/friends")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonBody(request)))
+                .content(request.asJson))
                 .andExpect(status().isOk)
                 .andExpect(jsonPath("$.data.id", equalTo(friend.id.toString())))
                 .andExpect(jsonPath("$", not(hasKey("errors"))))
@@ -45,7 +45,7 @@ class FriendCreateControllerTest {
 
         mockMvc.perform(post("/api/friends")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonBody(request)))
+                .content(request.asJson))
                 .andExpect(status().isBadRequest)
                 .andExpect(jsonPath("$", not(hasKey("data"))))
                 .andExpect(jsonPath("$.errors.length()", equalTo(1)))
