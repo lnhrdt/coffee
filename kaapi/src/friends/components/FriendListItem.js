@@ -1,3 +1,7 @@
+// @flow
+import {Friend} from '../../types'
+import type {Dispatch} from 'redux'
+
 import React from 'react'
 import moment from 'moment'
 
@@ -10,7 +14,7 @@ const coffee = (
     </svg>
 )
 
-export default ({friend, recordCoffee}) => (
+export default ({friend, recordCoffee}: {friend: Friend, recordCoffee: Function}) => (
     <div className={styles.friend}>
         <div className={styles.name}>{friend.name}</div>
         <div className={styles.lastCoffee}>{friend.coffees.length ? moment(friend.coffees[0].dateTime, 'X').fromNow() : 'never'}</div>

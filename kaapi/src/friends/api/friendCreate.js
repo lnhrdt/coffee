@@ -1,6 +1,12 @@
+// @flow
+
 import parseResponse from './parseResponse'
 
-export default (body) => {
+type FriendCreateRequestType = {
+    name: string
+}
+
+export default (body: FriendCreateRequestType) => {
     return fetch('/api/friends', {
         method: 'POST',
         headers: {

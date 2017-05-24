@@ -13,5 +13,6 @@ npm_test {
 }
 
 task test {
+    dependsOn npm_run_flow
     dependsOn npm_test
 }

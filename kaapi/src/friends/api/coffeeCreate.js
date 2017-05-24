@@ -1,4 +1,10 @@
-export default (body) => {
+// @flow
+
+type CoffeeCreateRequestType = {
+    friendId: string
+}
+
+export default (body: CoffeeCreateRequestType) => {
     return fetch('/api/coffees', {
         method: 'POST',
         headers: {

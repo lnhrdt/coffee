@@ -1,3 +1,5 @@
+// @flow
+
 import parseResponse from './parseResponse'
 
 export default () => {
