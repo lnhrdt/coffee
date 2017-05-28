@@ -2,6 +2,8 @@ buildscript {
     ext {
         kotlinVersion = '1.1.2'
         springBootVersion = '2.0.0.M1'
+        springCloudVersion = 'Finchley.BUILD-SNAPSHOT'
+        cloudContractVersion = '1.1.1.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -10,6 +12,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.springframework.cloud:spring-cloud-contract-gradle-plugin:${cloudContractVersion}")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
     }
@@ -20,6 +23,7 @@ apply plugin: 'kotlin-spring'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'spring-cloud-contract'
 
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
@@ -36,6 +40,15 @@ repositories {
     maven { url "https://repo.spring.io/milestone" }
 }
 
+test {
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
+
+contracts {
+    packageWithBaseClasses = 'io.leonhardt.coffee.latte.contracts'
+}
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
@@ -48,5 +61,12 @@ dependencies {
     runtime('org.springframework.boot:spring-boot-devtools')
     runtime('mysql:mysql-connector-java')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.cloud:spring-cloud-starter-contract-verifier')
     testCompile('com.nhaarman:mockito-kotlin:1.4.0')
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }
