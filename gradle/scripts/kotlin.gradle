@@ -1,0 +1,24 @@
+apply plugin: 'org.springframework.boot'
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-spring'
+
+sourceCompatibility = jvmTarget
+compileKotlin {
+  kotlinOptions.jvmTarget = jvmTarget
+}
+compileTestKotlin {
+  kotlinOptions.jvmTarget = jvmTarget
+}
+
+test {
+  testLogging {
+    exceptionFormat = 'full'
+  }
+}
+
+dependencies {
+  compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
+  compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+  compile('com.fasterxml.jackson.module:jackson-module-kotlin')
+  testCompile("com.nhaarman:mockito-kotlin-kt1.1:${mockitoKotlinVersion}")
+}
