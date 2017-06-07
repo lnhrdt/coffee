@@ -1,6 +1,9 @@
-.gradle
-/build/
-/out/
+.gradle/
+build/
+classes/
+out/
+node_modules/
+
 !gradle/wrapper/gradle-wrapper.jar
 
 ### IntelliJ IDEA ###
@@ -9,3 +12,4 @@
 *.iml
 *.ipr
 
+.DS_Store
