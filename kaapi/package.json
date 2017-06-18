@@ -15,6 +15,7 @@
     "enzyme": "2.8.2",
     "fetch-mock": "5.11.0",
     "normalize.css": "7.0.0",
+    "react-svg-loader": "1.1.1",
     "react-test-renderer": "15.6.1",
     "redux-devtools": "3.4.0",
     "redux-logger": "3.0.6",
