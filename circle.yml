@@ -17,10 +17,6 @@ machine:
     - cf auth $PWS_USER $PWS_PASSWORD
     - cf target -o $PWS_ORGANIZATION
 
-checkout:
-  post:
-    - echo REACT_APP_CSS_MODULES=true > kaapi/.env
-
 dependencies:
   override:
     - ./gradlew downloadDependencies

@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './Button.css'
+import styles from '!!style!css?modules&camelCase&importLoaders=1!postcss!./Button.css' // eslint-disable-line import/no-webpack-loader-syntax
 
 const loader = (
     <svg className={styles.loader} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">

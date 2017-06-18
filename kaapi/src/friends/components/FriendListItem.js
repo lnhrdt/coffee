@@ -1,9 +1,10 @@
 import React from 'react'
 import moment from 'moment'
 
-import styles from './FriendListItem.css'
+import styles from '!!style!css?modules&camelCase&importLoaders=1!postcss!./FriendListItem.css' // eslint-disable-line import/no-webpack-loader-syntax
+import CoffeeIcon from '!!babel?{"presets":["react-app"]}!react-svg!./coffee.svg' // eslint-disable-line import/no-webpack-loader-syntax
+
 import Button from '../../layout/Button'
-import CoffeeIcon from '!!../../../node_modules/babel-loader?{"presets":["react-app"]}!../../../node_modules/react-svg-loader!./coffee.svg' // eslint-disable-line import/no-webpack-loader-syntax
 
 const coffee = <CoffeeIcon className={styles.icon}/>
 

@@ -11,10 +11,11 @@
     "redux-thunk": "2.2.0"
   },
   "devDependencies": {
-    "custom-react-scripts": "0.0.23",
+    "babel-loader": "7.0.0",
     "enzyme": "2.8.2",
     "fetch-mock": "5.11.0",
     "normalize.css": "7.0.0",
+    "react-scripts": "0.8.5",
     "react-svg-loader": "1.1.1",
     "react-test-renderer": "15.6.1",
     "redux-devtools": "3.4.0",

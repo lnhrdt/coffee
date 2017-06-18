@@ -1,7 +1,7 @@
 import React from 'react'
 
 import FriendListItem from '../FriendListItem'
-import styles from './FriendListPresenter.css'
+import styles from '!!style!css?modules&camelCase&importLoaders=1!postcss!./FriendListPresenter.css' // eslint-disable-line import/no-webpack-loader-syntax
 
 export default ({friends, recordCoffee}) => {
     return friends.length ? (
