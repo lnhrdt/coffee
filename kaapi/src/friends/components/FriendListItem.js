@@ -1,8 +1,8 @@
 import React from 'react'
 import moment from 'moment'
 
-import styles from '!!style!css?modules&camelCase&importLoaders=1!postcss!./FriendListItem.css' // eslint-disable-line import/no-webpack-loader-syntax
-import CoffeeIcon from '!!babel?{"presets":["react-app"]}!react-svg!./coffee.svg' // eslint-disable-line import/no-webpack-loader-syntax
+import styles from './FriendListItem.css'
+import CoffeeIcon from './coffee.svg'
 
 import Button from '../../layout/Button'
 
