@@ -1,9 +1,0 @@
-apply plugin: 'maven-publish'
-apply plugin: 'spring-cloud-contract'
-
-// Added to make spring-cloud-contract more compatible with Kotlin https://git.io/vHw2m
-compileTestGroovy.dependsOn 'copyTestKotlinClasses'
-
-dependencies {
-  testCompile('org.springframework.cloud:spring-cloud-starter-contract-verifier')
-}
