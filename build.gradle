@@ -26,11 +26,11 @@ allprojects {
 }
 
 task downloadDependencies {
-    dependsOn ':kaapi:npmInstall'
+    dependsOn ':kaapi:yarn_install'
     dependsOn ':latte:compileTestJava'
 }
 
 task build {
-    dependsOn ':kaapi:npm_run_build'
+    dependsOn ':kaapi:yarn_run_build'
     dependsOn ':latte:assemble'
 }
