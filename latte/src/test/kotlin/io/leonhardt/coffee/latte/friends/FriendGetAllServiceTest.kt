@@ -1,24 +1,39 @@
 package io.leonhardt.coffee.latte.friends
 
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.whenever
+import io.github.codebandits.results.succeedsAnd
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.theInstance
+import org.hamcrest.Matchers.*
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit4.SpringRunner
+import org.springframework.transaction.annotation.Transactional
 
 @RunWith(SpringRunner::class)
+@SpringBootTest
+@ActiveProfiles("test")
+@Transactional
 class FriendGetAllServiceTest {
 
-    val friendRepository: FriendRepository = mock()
-    val subject: FriendGetAllService = FriendGetAllService(friendRepository)
+    @Autowired
+    lateinit var friendCreateService: FriendCreateService
+
+    val subject: FriendGetAllService = FriendGetAllService()
 
     @Test
-    fun getAll() {
-        val friends = listOf(Friend(name = "Mark Ducommun", coffees = emptyList()))
-        whenever(friendRepository.findAll()).thenReturn(friends)
+    fun `returns the Friends`() {
+        val friends = listOf(
+                FriendNew(name = "Mark Ducommun"),
+                FriendNew(name = "Christine Ducommun")
+        )
+        friends.forEach { friendCreateService.create(it) }
 
-        assertThat(subject.getAll(), theInstance(friends))
+        subject.getAll() succeedsAnd {
+            assertThat(it, hasSize(2))
+            assertThat(it, hasItem(hasProperty("name", equalTo("Mark Ducommun"))))
+            assertThat(it, hasItem(hasProperty("name", equalTo("Christine Ducommun"))))
+        }
     }
 }

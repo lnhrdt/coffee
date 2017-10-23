@@ -1,35 +1,39 @@
 package io.leonhardt.coffee.latte.coffee
 
-import com.nhaarman.mockito_kotlin.*
-import io.leonhardt.coffee.latte.Result
+import io.github.codebandits.results.succeeds
+import io.github.codebandits.results.succeedsAnd
+import io.leonhardt.coffee.latte.friends.FriendCreateService
+import io.leonhardt.coffee.latte.friends.FriendNew
 import io.leonhardt.coffee.latte.support.closeToNow
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.equalTo
-import org.hamcrest.Matchers.theInstance
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit4.SpringRunner
-import java.time.Instant
-import java.util.*
+import org.springframework.transaction.annotation.Transactional
 
 @RunWith(SpringRunner::class)
+@SpringBootTest
+@ActiveProfiles("test")
+@Transactional
 class CoffeeCreateServiceTest {
 
-    val coffeeRepository: CoffeeRepository = mock()
-    val subject: CoffeeCreateService = CoffeeCreateService(coffeeRepository)
+    @Autowired
+    lateinit var friendCreateService: FriendCreateService
+
+    val subject: CoffeeCreateService = CoffeeCreateService()
 
     @Test
-    fun create() {
-        val request = CoffeeCreateService.Request(friendId = UUID.randomUUID())
-        val savedCoffee = Coffee(id = UUID.randomUUID(), friendId = request.friendId, dateTime = Instant.now())
-        whenever(coffeeRepository.save(any())).thenReturn(savedCoffee)
+    fun `returns the persisted Coffee`() {
+        val friend = friendCreateService.create(FriendNew(name = "test-friend")).succeeds()
+        val coffeeNew = CoffeeNew(friendId = friend.id)
 
-        val result = subject.create(request = request) as Result.Success
-
-        assertThat(result.data, theInstance(savedCoffee))
-        verify(coffeeRepository).save(check {
-            assertThat(it.friendId, equalTo(request.friendId))
-            assertThat(it.dateTime, closeToNow())
-        })
+        subject.create(coffeeNew = coffeeNew) succeedsAnd { coffee ->
+            assertThat(coffee.friendId, equalTo(friend.id))
+            assertThat(coffee.dateTime, closeToNow())
+        }
     }
 }

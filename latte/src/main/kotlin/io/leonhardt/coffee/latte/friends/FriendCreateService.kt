@@ -1,25 +1,23 @@
 package io.leonhardt.coffee.latte.friends
 
+import io.github.codebandits.results.Result
+import io.github.codebandits.results.map
 import io.leonhardt.coffee.latte.Errors
-import io.leonhardt.coffee.latte.Result
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
-class FriendCreateService(
-        val friendRepository: FriendRepository,
-        val friendCreateRequestValidator: FriendCreateRequestValidator
-) {
-    fun create(request: Request): Result<Friend, Errors> {
-        val validateResult = friendCreateRequestValidator.validate(request)
+class FriendCreateService(val friendCreateRequestValidator: FriendCreateRequestValidator) {
 
-        return when (validateResult) {
-            is Result.Success -> {
-                val friend = friendRepository.save(Friend(name = request.name, coffees = emptyList()))
-                return Result.Success(friend)
-            }
-            is Result.Failure -> Result.Failure(validateResult.errors)
-        }
+    @Transactional
+    fun create(friendNew: FriendNew): Result<Errors, Friend> {
+
+        return friendCreateRequestValidator.validate(friendNew)
+                .map { validFriendNew ->
+                    FriendEntity.new {
+                        name = validFriendNew.name
+                    }
+                }
+                .map { it.toFriend() }
     }
-
-    data class Request(val name: String)
 }

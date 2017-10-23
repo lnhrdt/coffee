@@ -1,4 +1,5 @@
 apply from: '../gradle/scripts/kotlin.gradle'
 apply from: '../gradle/scripts/springDependencyManagement.gradle'
 apply from: '../gradle/scripts/springBoot.gradle'
-apply from: '../gradle/scripts/springBootMySQL.gradle'
+apply from: '../gradle/scripts/persistence.gradle'
+apply from: '../gradle/scripts/results.gradle'

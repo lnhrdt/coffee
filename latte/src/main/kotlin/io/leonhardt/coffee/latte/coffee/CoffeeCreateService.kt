@@ -1,18 +1,31 @@
 package io.leonhardt.coffee.latte.coffee
 
+import io.github.codebandits.results.Result
+import io.github.codebandits.results.adapters.presenceAsResult
+import io.github.codebandits.results.map
+import io.github.codebandits.results.mapError
 import io.leonhardt.coffee.latte.Errors
-import io.leonhardt.coffee.latte.Result
+import io.leonhardt.coffee.latte.friends.FriendEntity
+import org.joda.time.DateTime
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.time.Instant
-import java.util.*
 
 @Service
-class CoffeeCreateService(val coffeeRepository: CoffeeRepository) {
-    fun create(request: Request): Result<Coffee, Errors> {
-        val newCoffee = Coffee(friendId = request.friendId, dateTime = Instant.now())
-        val savedCoffee = coffeeRepository.save(newCoffee)
-        return Result.Success(savedCoffee)
-    }
+class CoffeeCreateService {
 
-    data class Request(val friendId: UUID)
+    @Transactional
+    fun create(coffeeNew: CoffeeNew): Result<Errors, Coffee> {
+        val friendId = coffeeNew.friendId.toString()
+        return FriendEntity.findById(friendId)
+                .presenceAsResult()
+                .mapError { mapOf("friendId" to "friendId $friendId not found") }
+                .map { friendEntity ->
+                    CoffeeEntity.new {
+                        friend = friendEntity
+                        dateTime = DateTime(Instant.now().toEpochMilli())
+                    }
+                }
+                .map { it.toCoffee() }
+    }
 }

@@ -1,47 +1,50 @@
 package io.leonhardt.coffee.latte.friends
 
-import com.nhaarman.mockito_kotlin.*
-import io.leonhardt.coffee.latte.Errors
-import io.leonhardt.coffee.latte.Result
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.whenever
+import io.github.codebandits.results.Failure
+import io.github.codebandits.results.Success
+import io.github.codebandits.results.failsAnd
+import io.github.codebandits.results.succeedsAnd
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.*
+import org.hamcrest.Matchers.empty
+import org.hamcrest.Matchers.equalTo
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit4.SpringRunner
-import java.util.*
+import org.springframework.transaction.annotation.Transactional
 
 @RunWith(SpringRunner::class)
+@SpringBootTest
+@ActiveProfiles("test")
+@Transactional
 class FriendCreateServiceTest {
 
-    val friendRepository: FriendRepository = mock()
     val friendCreateRequestValidator: FriendCreateRequestValidator = mock()
-    val subject: FriendCreateService = FriendCreateService(friendRepository, friendCreateRequestValidator)
+
+    val subject: FriendCreateService = FriendCreateService(friendCreateRequestValidator)
 
     @Test
-    fun create_whenResultIsSuccess() {
-        val request = FriendCreateService.Request(name = "Anna Yu")
-        val savedFriend = Friend(id = UUID.randomUUID(), name = request.name, coffees = emptyList())
-        whenever(friendCreateRequestValidator.validate(request)).thenReturn(Result.Success(Unit))
-        whenever(friendRepository.save(any())).thenReturn(savedFriend)
+    fun `when validator succeeds, returns the persisted Friend`() {
+        val friendNew = FriendNew(name = "Anna Yu")
+        whenever(friendCreateRequestValidator.validate(friendNew)).thenReturn(Success(friendNew))
 
-        val success = subject.create(request) as Result.Success
-
-        assertThat(success.data, theInstance(savedFriend))
-        verify(friendRepository).save(check {
-            assertThat(it.name, equalTo(request.name))
+        subject.create(friendNew) succeedsAnd {
+            assertThat(it.name, equalTo("Anna Yu"))
             assertThat(it.coffees, empty())
-        })
+        }
     }
 
     @Test
-    fun create_whenResultIsFailure() {
-        val request = FriendCreateService.Request(name = "Rodolfo Sanchez")
+    fun `when validator fails, returns the errors`() {
+        val request = FriendNew(name = "Rodolfo Sanchez")
         val errors = mapOf("name" to "This name is too cool.")
-        whenever(friendCreateRequestValidator.validate(request)).thenReturn(Result.Failure(errors))
+        whenever(friendCreateRequestValidator.validate(request)).thenReturn(Failure(errors))
 
-        val failure = subject.create(request) as Result.Failure
-
-        assertThat(failure.errors, theInstance(errors))
-        verify(friendRepository, never()).save(any())
+        subject.create(request) failsAnd {
+            assertThat(it, equalTo(errors))
+        }
     }
 }

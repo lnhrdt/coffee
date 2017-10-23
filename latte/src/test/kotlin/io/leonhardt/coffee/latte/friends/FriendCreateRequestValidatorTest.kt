@@ -1,29 +1,25 @@
 package io.leonhardt.coffee.latte.friends
 
-import io.leonhardt.coffee.latte.Result
+import io.github.codebandits.results.failsAnd
+import io.github.codebandits.results.succeedsWith
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.hasEntry
-import org.hamcrest.Matchers.instanceOf
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.springframework.test.context.junit4.SpringRunner
 
-@RunWith(SpringRunner::class)
 class FriendCreateRequestValidatorTest {
 
     val subject = FriendCreateRequestValidator()
 
     @Test
-    fun validate_whenFirstNameIsPresent_returnValid() {
-        val result = subject.validate(FriendCreateService.Request("Angela Chin"))
-
-        assertThat(result, instanceOf(Result.Success::class.java))
+    fun `when firstName is present, succeeds`() {
+        val friendNew = FriendNew(name = "Angela Chin")
+        subject.validate(friendNew) succeedsWith friendNew
     }
 
     @Test
-    fun validate_whenFirstNameIsEmptyString_returnInvalid() {
-        val result = subject.validate(FriendCreateService.Request("")) as Result.Failure
-
-        assertThat(result.errors, hasEntry("name", "Required"))
+    fun `when firstName is is "", fails`() {
+        subject.validate(FriendNew(name = "")) failsAnd { errors ->
+            assertThat(errors, hasEntry("name", "Required"))
+        }
     }
 }

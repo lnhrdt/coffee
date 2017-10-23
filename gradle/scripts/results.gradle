@@ -1,0 +1,4 @@
+dependencies {
+    compile("com.github.codebandits.results:results:$resultsVersion")
+    testCompile("com.github.codebandits.results:results-test:$resultsVersion")
+}

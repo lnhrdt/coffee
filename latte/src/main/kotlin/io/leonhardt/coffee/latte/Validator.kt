@@ -1,5 +1,7 @@
 package io.leonhardt.coffee.latte
 
-interface Validator<in inType> {
-    fun validate(input: inType): Result<Unit, Errors>
+import io.github.codebandits.results.Result
+
+interface Validator<DataType> {
+    fun validate(data: DataType): Result<Errors, DataType>
 }
