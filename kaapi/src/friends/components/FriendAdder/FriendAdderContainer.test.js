@@ -25,6 +25,7 @@ describe('FriendAdderContainer', () => {
         describe('when friendNameChange is called', () => {
             beforeEach(() => {
                 subject.find(mockWrappedComponent).props().friendNameChange({target: {value: 'Ross Hale'}})
+                subject.update()
             })
 
             it('should update friendName with the valued passed', () => {
@@ -35,12 +36,14 @@ describe('FriendAdderContainer', () => {
                 it('should pass submitting=true', () => {
                     mockProps.friendAdd.mockReturnValue(Promise.resolve())
                     subject.find(mockWrappedComponent).props().friendAdd()
+                    subject.update()
                     expect(subject.find(mockWrappedComponent).props().submitting).toEqual(true)
                 })
 
                 it('should call friendAdd with the value of friendName', () => {
                     mockProps.friendAdd.mockReturnValue(Promise.resolve())
                     subject.find(mockWrappedComponent).props().friendAdd()
+                    subject.update()
                     expect(mockProps.friendAdd).toHaveBeenCalledWith('Ross Hale')
                 })
 
@@ -48,6 +51,7 @@ describe('FriendAdderContainer', () => {
                     it('should pass submitting=false', () => {
                         mockProps.friendAdd.mockReturnValue(Promise.resolve())
                         return subject.find(mockWrappedComponent).props().friendAdd().then(() => {
+                            subject.update()
                             expect(subject.find(mockWrappedComponent).props().submitting).toEqual(false)
                         })
                     })
@@ -55,6 +59,7 @@ describe('FriendAdderContainer', () => {
                     it('should pass friendName=""', () => {
                         mockProps.friendAdd.mockReturnValue(Promise.resolve())
                         return subject.find(mockWrappedComponent).props().friendAdd().then(() => {
+                            subject.update()
                             expect(subject.find(mockWrappedComponent).props().friendName).toEqual('')
                         })
                     })
@@ -64,6 +69,7 @@ describe('FriendAdderContainer', () => {
                     it('should pass submitting=false', () => {
                         mockProps.friendAdd.mockReturnValue(Promise.reject({name: 'Was not friendly.'}))
                         return subject.find(mockWrappedComponent).props().friendAdd().then(() => {
+                            subject.update()
                             expect(subject.find(mockWrappedComponent).props().submitting).toEqual(false)
                         })
                     })
@@ -71,6 +77,7 @@ describe('FriendAdderContainer', () => {
                     it('should not clear friendName', () => {
                         mockProps.friendAdd.mockReturnValue(Promise.reject({name: 'Was not friendly.'}))
                         return subject.find(mockWrappedComponent).props().friendAdd().then(() => {
+                            subject.update()
                             expect(subject.find(mockWrappedComponent).props().friendName).toEqual('Ross Hale')
                         })
                     })
@@ -78,6 +85,7 @@ describe('FriendAdderContainer', () => {
                     it('should pass the error', () => {
                         mockProps.friendAdd.mockReturnValue(Promise.reject({name: 'Was not friendly.'}))
                         return subject.find(mockWrappedComponent).props().friendAdd().then(() => {
+                            subject.update()
                             expect(subject.find(mockWrappedComponent).props().error).toEqual('Was not friendly.')
                         })
                     })
@@ -85,6 +93,7 @@ describe('FriendAdderContainer', () => {
                     describe('when friendNameChange is called', () => {
                         beforeEach(() => {
                             subject.find(mockWrappedComponent).props().friendNameChange({target: {value: 'Michael Vos'}})
+                            subject.update()
                         })
 
                         it('should clear the error', () => {

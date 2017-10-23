@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './Button.css'
+import styles from './Button.module.css'
 
 const loader = (
     <svg className={styles.loader} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">

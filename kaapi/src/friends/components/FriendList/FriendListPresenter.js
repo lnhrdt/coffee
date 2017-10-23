@@ -1,7 +1,7 @@
 import React from 'react'
 
 import FriendListItem from '../FriendListItem'
-import styles from './FriendListPresenter.css'
+import styles from './FriendListPresenter.module.css'
 
 export default ({friends, recordCoffee}) => {
     return friends.length ? (

@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './FriendAdderPresenter.css'
+import styles from './FriendAdderPresenter.module.css'
 import Button from '../../../layout/Button'
 
 export default ({friendName, friendNameChange, friendAdd, submitting, error}) => (

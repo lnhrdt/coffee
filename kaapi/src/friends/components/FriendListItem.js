@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 
-import styles from './FriendListItem.css'
+import styles from './FriendListItem.module.css'
 import Button from '../../layout/Button'
 
 const coffee = (

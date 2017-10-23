@@ -60,6 +60,7 @@ describe('Button', () => {
                     clickHandlerResolve()
 
                     return clickHandlerPromise.then(() => {
+                        subject.update()
                         expect(subject.find('button').text()).toContain(mockProps.action)
                     })
                 })
