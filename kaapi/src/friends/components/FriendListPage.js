@@ -1,13 +1,13 @@
-import React from "react"
-import FriendList from "./FriendList"
-import FriendAdder from "./FriendAdder"
+import React from 'react'
+import FriendList from './FriendList'
+import FriendAdder from './FriendAdder'
 
 
 import Card from '../../layout/Card'
 
-export default () => (
+export default (props) => (
     <Card>
-        <FriendList/>
-        <FriendAdder/>
+        <FriendList {...props}/>
+        <FriendAdder {...props}/>
     </Card>
 )

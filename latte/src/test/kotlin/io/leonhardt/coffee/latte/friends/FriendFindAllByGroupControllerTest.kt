@@ -13,33 +13,35 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup
 import java.util.*
 
-class FriendGetAllControllerTest {
+class FriendFindAllByGroupControllerTest {
 
-    private val friendGetAllService: FriendGetAllService = mock()
-    private val subject = FriendGetAllController(friendGetAllService)
+    private val friendFindAllByGroupService: FriendFindAllByGroupService = mock()
+    private val subject = FriendFindAllByGroupController(friendFindAllByGroupService)
     private val mockMvc: MockMvc = standaloneSetup(subject).build()
 
     @Test
     fun `when service succeeds, returns the Friends`() {
+        val groupId = UUID.randomUUID()
         val friends = listOf(
-                Friend(id = UUID.randomUUID(), name = "Thomas Shouler", coffees = emptyList()),
-                Friend(id = UUID.randomUUID(), name = "Alex Thornburg", coffees = emptyList()),
-                Friend(id = UUID.randomUUID(), name = "Rodolfo Sanchez", coffees = emptyList())
+                Friend(id = UUID.randomUUID(), name = "Thomas Shouler", coffees = emptyList(), groupId = groupId),
+                Friend(id = UUID.randomUUID(), name = "Alex Thornburg", coffees = emptyList(), groupId = groupId),
+                Friend(id = UUID.randomUUID(), name = "Rodolfo Sanchez", coffees = emptyList(), groupId = groupId)
         )
 
-        whenever(friendGetAllService.getAll()).thenReturn(Success(friends))
+        whenever(friendFindAllByGroupService.findAllByGroup(groupId)).thenReturn(Success(friends))
 
-        mockMvc.perform(get("/api/friends"))
+        mockMvc.perform(get("/api/groups/$groupId/friends"))
                 .andExpect(status().isOk)
                 .andExpect(jsonPath("$.data.length()").value(3))
     }
 
     @Test
     fun `when service fails, returns the errors`() {
+        val groupId = UUID.randomUUID()
         val errors = mapOf("mistake" to "you did it wrong")
-        whenever(friendGetAllService.getAll()).thenReturn(Failure(errors))
+        whenever(friendFindAllByGroupService.findAllByGroup(groupId)).thenReturn(Failure(errors))
 
-        mockMvc.perform(get("/api/friends"))
+        mockMvc.perform(get("/api/groups/$groupId/friends"))
                 .andExpect(status().isBadRequest)
                 .andExpect(jsonPath("$", Matchers.not(Matchers.hasKey("data"))))
                 .andExpect(jsonPath("$.errors.length()", Matchers.equalTo(1)))

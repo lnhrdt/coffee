@@ -14,11 +14,12 @@ describe('FriendAdderConnector', () => {
         const mockFriendsLoadAction = {type: 'mock friendAdd'}
         friendAdd.mockReturnValueOnce(mockFriendsLoadAction)
 
-        const {subject, mockWrappedComponent, mockStore} = renderDecorator(FriendAdderConnector)
+        const mockProps = {match: {params: {groupId: 'abc123'}}}
+        const {subject, mockWrappedComponent, mockStore} = renderDecorator(FriendAdderConnector, mockProps)
 
         return subject.find(mockWrappedComponent).props().friendAdd('Will Read')
             .then(() => {
-                expect(friendAdd).toHaveBeenCalledWith('Will Read')
+                expect(friendAdd).toHaveBeenCalledWith({name: 'Will Read', groupId: 'abc123'})
                 expect(mockStore.getActions()).toContainEqual(mockFriendsLoadAction)
             })
     })

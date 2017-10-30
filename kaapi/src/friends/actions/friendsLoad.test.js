@@ -18,9 +18,10 @@ describe('friendsLoad', () => {
         it('should dispatch friendsReceived with response from friendsGet', () => {
             const mockDispatch = jest.fn()
 
-            return friendsLoad()(mockDispatch).then(() => {
+            return friendsLoad('abc123')(mockDispatch).then(() => {
+                expect(friendsGet).toBeCalledWith('abc123')
                 expect(mockDispatch).toBeCalledWith('mock friendsReceived')
-                expect(friendsReceived).toBeCalledWith('mock friendsGet')
+                expect(friendsReceived).toBeCalledWith({friends: 'mock friendsGet', groupId: 'abc123'})
             })
         })
     })

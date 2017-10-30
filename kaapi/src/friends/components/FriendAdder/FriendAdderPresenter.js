@@ -1,16 +1,16 @@
 import React from 'react'
-import styles from './FriendAdderPresenter.module.css'
+import styles from './FriendAdderPresenter.module.scss'
 import Button from '../../../layout/Button'
 
-export default ({friendName, friendNameChange, friendAdd, submitting, error}) => (
+export default ({value, valueChange, submit, submitting, error}) => (
     <div>
         <div className={styles.adder}>
             <input type="text"
-                   value={friendName}
-                   onChange={friendNameChange} disabled={submitting}
+                   value={value}
+                   onChange={valueChange} disabled={submitting}
                    className={error ? styles.inputError : styles.input}
             />
-            <Button action="Add" clickHandler={friendAdd}/>
+            <Button action="Add" clickHandler={submit}/>
         </div>
         <div className={styles.error}>{error}</div>
     </div>

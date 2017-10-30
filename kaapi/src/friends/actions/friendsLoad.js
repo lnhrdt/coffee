@@ -1,6 +1,6 @@
 import friendsReceived from './friendsReceived'
 import friendsGet from '../api/friendsGet'
 
-export default () => (dispatch) => {
-    return friendsGet().then(response => dispatch(friendsReceived(response)))
+export default (groupId) => (dispatch) => {
+    return friendsGet(groupId).then(friends => dispatch(friendsReceived({friends, groupId})))
 }

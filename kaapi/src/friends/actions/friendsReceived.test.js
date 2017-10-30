@@ -3,9 +3,9 @@ import types from './types'
 
 describe('friendsReceived', () => {
     it('should build the action', () => {
-        expect(friendsReceived('mock friends')).toEqual({
+        expect(friendsReceived({friends: 'mock friends', groupId: 'abc123'})).toEqual({
             type: types.FRIENDS_RECEIVED,
-            data: 'mock friends'
+            data: {friends: 'mock friends', groupId: 'abc123'}
         })
     })
 })

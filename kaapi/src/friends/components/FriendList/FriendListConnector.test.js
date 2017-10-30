@@ -14,22 +14,32 @@ describe('FriendListConnector', () => {
 
     it('should provide sorted friends from state', () => {
         friendSort.mockReturnValueOnce('sorted friends')
-        const mockState = {friends: 'unsorted friends'}
-        const {subject, mockWrappedComponent} = renderDecorator(FriendListConnector, undefined, mockState)
+        const mockProps = {match: {params: {groupId: 'abc123'}}}
+        const mockState = {friends: {'abc123': 'unsorted friends'}}
+        const {subject, mockWrappedComponent} = renderDecorator(FriendListConnector, mockProps, mockState)
 
         expect(friendSort).toBeCalledWith('unsorted friends')
         expect(subject.find(mockWrappedComponent).props().friends).toEqual('sorted friends')
+    })
+
+    it('should provide an empty array of friends when state does not contain group', () => {
+        const mockProps = {match: {params: {groupId: 'abc123'}}}
+        const mockState = {friends: {}}
+        const {subject, mockWrappedComponent} = renderDecorator(FriendListConnector, mockProps, mockState)
+
+        expect(subject.find(mockWrappedComponent).props().friends).toEqual([])
     })
 
     it('should provide a function that dispatches friendsLoad', () => {
         const mockFriendsLoadAction = {type: 'mock friendsLoad'}
         friendsLoad.mockReturnValueOnce(mockFriendsLoadAction)
 
-        const {subject, mockWrappedComponent, mockStore} = renderDecorator(FriendListConnector)
+        const mockProps = {match: {params: {groupId: 'abc123'}}}
+        const {subject, mockWrappedComponent, mockStore} = renderDecorator(FriendListConnector, mockProps)
 
         return subject.find(mockWrappedComponent).props().friendsLoad()
             .then(() => {
-                expect(friendsLoad).toHaveBeenCalled()
+                expect(friendsLoad).toHaveBeenCalledWith('abc123')
                 expect(mockStore.getActions()).toContainEqual(mockFriendsLoadAction)
             })
     })
@@ -38,7 +48,8 @@ describe('FriendListConnector', () => {
         const mockRecordCoffeeAction = {type: 'mock recordCoffee'}
         recordCoffee.mockReturnValueOnce(mockRecordCoffeeAction)
 
-        const {subject, mockWrappedComponent, mockStore} = renderDecorator(FriendListConnector)
+        const mockProps = {match: {params: {groupId: 'abc123'}}}
+        const {subject, mockWrappedComponent, mockStore} = renderDecorator(FriendListConnector, mockProps)
 
         return subject.find(mockWrappedComponent).props().recordCoffee('mock args')
             .then(() => {

@@ -2,19 +2,20 @@ package io.leonhardt.coffee.latte.friends
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
-import io.github.codebandits.results.Failure
-import io.github.codebandits.results.Success
-import io.github.codebandits.results.failsAnd
-import io.github.codebandits.results.succeedsAnd
+import io.github.codebandits.results.*
+import io.leonhardt.coffee.latte.groups.GroupCreateService
+import io.leonhardt.coffee.latte.groups.GroupNew
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.empty
 import org.hamcrest.Matchers.equalTo
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.transaction.annotation.Transactional
+import java.util.*
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
@@ -26,9 +27,13 @@ class FriendCreateServiceTest {
 
     val subject: FriendCreateService = FriendCreateService(friendCreateRequestValidator)
 
+    @Autowired
+    lateinit var groupCreateService: GroupCreateService
+
     @Test
     fun `when validator succeeds, returns the persisted Friend`() {
-        val friendNew = FriendNew(name = "Anna Yu")
+        val groupId = GroupNew(name = "Group 1").let { groupCreateService.create(it) }.succeeds().id
+        val friendNew = FriendNew(name = "Anna Yu", groupId = groupId)
         whenever(friendCreateRequestValidator.validate(friendNew)).thenReturn(Success(friendNew))
 
         subject.create(friendNew) succeedsAnd {
@@ -39,7 +44,8 @@ class FriendCreateServiceTest {
 
     @Test
     fun `when validator fails, returns the errors`() {
-        val request = FriendNew(name = "Rodolfo Sanchez")
+        val groupId = GroupNew(name = "Group 1").let { groupCreateService.create(it) }.succeeds().id
+        val request = FriendNew(name = "Rodolfo Sanchez", groupId = groupId)
         val errors = mapOf("name" to "This name is too cool.")
         whenever(friendCreateRequestValidator.validate(request)).thenReturn(Failure(errors))
 

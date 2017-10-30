@@ -1,7 +1,7 @@
 import parseResponse from './parseResponse'
 
-export default () => {
-    return fetch('/api/friends', {
+export default (groupId) => {
+    return fetch(`/api/groups/${groupId}/friends`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'

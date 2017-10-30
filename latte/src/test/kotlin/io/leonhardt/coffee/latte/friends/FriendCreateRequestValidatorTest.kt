@@ -5,6 +5,7 @@ import io.github.codebandits.results.succeedsWith
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.hasEntry
 import org.junit.Test
+import java.util.*
 
 class FriendCreateRequestValidatorTest {
 
@@ -12,13 +13,13 @@ class FriendCreateRequestValidatorTest {
 
     @Test
     fun `when firstName is present, succeeds`() {
-        val friendNew = FriendNew(name = "Angela Chin")
+        val friendNew = FriendNew(name = "Angela Chin", groupId = UUID.randomUUID())
         subject.validate(friendNew) succeedsWith friendNew
     }
 
     @Test
     fun `when firstName is is "", fails`() {
-        subject.validate(FriendNew(name = "")) failsAnd { errors ->
+        subject.validate(FriendNew(name = "", groupId = UUID.randomUUID())) failsAnd { errors ->
             assertThat(errors, hasEntry("name", "Required"))
         }
     }

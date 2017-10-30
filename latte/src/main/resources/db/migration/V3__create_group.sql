@@ -1,0 +1,11 @@
+DELETE FROM friend;
+
+CREATE TABLE group_table (
+  id   CHAR(36)     NOT NULL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL
+);
+
+ALTER TABLE friend
+  ADD COLUMN group_id CHAR(36) NOT NULL,
+  ADD FOREIGN KEY (group_id) REFERENCES group_table (id)
+  ON DELETE CASCADE;

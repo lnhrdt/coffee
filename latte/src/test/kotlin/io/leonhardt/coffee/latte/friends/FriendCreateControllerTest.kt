@@ -23,8 +23,9 @@ class FriendCreateControllerTest {
 
     @Test
     fun `when service succeeds, returns the Friend`() {
-        val request = FriendNew(name = "William Ramsey")
-        val friend = Friend(id = UUID.randomUUID(), name = "William Ramsey", coffees = emptyList())
+        val groupId = UUID.randomUUID()
+        val request = FriendNew(name = "William Ramsey", groupId = groupId)
+        val friend = Friend(id = UUID.randomUUID(), name = "William Ramsey", coffees = emptyList(), groupId = groupId)
         whenever(friendCreateService.create(request)).thenReturn(Success(friend))
 
         mockMvc.perform(post("/api/friends")
@@ -37,7 +38,8 @@ class FriendCreateControllerTest {
 
     @Test
     fun `when service fails, returns the errors`() {
-        val request = FriendNew(name = "William Ramsey")
+        val groupId = UUID.randomUUID()
+        val request = FriendNew(name = "William Ramsey", groupId = groupId)
         val errors = mapOf("mistake" to "you did it wrong")
         whenever(friendCreateService.create(request)).thenReturn(Failure(errors))
 

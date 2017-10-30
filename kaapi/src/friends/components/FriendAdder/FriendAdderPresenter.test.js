@@ -3,12 +3,12 @@ import {shallow} from 'enzyme'
 import FriendAdderPresenter from './FriendAdderPresenter'
 import Button from '../../../layout/Button'
 
-describe('FriendAdderView', () => {
+describe('FriendAdderPresenter', () => {
 
     const mockProps = {
-        friendAdd: jest.fn(),
-        friendNameChange: jest.fn(),
-        friendName: 'Arjun Shah'
+        submit: jest.fn(),
+        valueChange: jest.fn(),
+        value: 'Arjun Shah'
     }
 
     it('should render a submit button', () => {
@@ -16,21 +16,21 @@ describe('FriendAdderView', () => {
         const button = subject.find(Button)
 
         expect(button.prop('action')).toEqual('Add')
-        expect(button.prop('clickHandler')).toEqual(mockProps.friendAdd)
+        expect(button.prop('clickHandler')).toEqual(mockProps.submit)
     })
 
     describe('when component loads', () => {
         const subject = shallow(<FriendAdderPresenter {...mockProps}/>)
 
-        it('should set the value of input to friendName', () => {
+        it('should set the value of input to value', () => {
             expect(subject.find('input').props().value).toEqual('Arjun Shah')
         })
 
         describe('when text is entered', () => {
             beforeEach(() => subject.find('input').simulate('change', {target: {value: 'Prity Patel'}}))
 
-            it('should trigger friendNameChange', () => {
-                expect(mockProps.friendNameChange).toHaveBeenCalledWith({'target': {'value': 'Prity Patel'}})
+            it('should trigger valueChange', () => {
+                expect(mockProps.valueChange).toHaveBeenCalledWith({'target': {'value': 'Prity Patel'}})
             })
         })
     })

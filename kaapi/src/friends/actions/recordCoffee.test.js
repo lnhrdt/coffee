@@ -14,8 +14,9 @@ describe('recordCoffee', () => {
         friendsLoad.mockReturnValueOnce('mock friendsLoad')
         const mockDispatch = jest.fn()
 
-        return recordCoffee({id: 'abc123'})(mockDispatch).then(() => {
+        return recordCoffee({id: 'abc123', groupId: 'def456'})(mockDispatch).then(() => {
             expect(coffeeCreate).toBeCalledWith({friendId: 'abc123'})
+            expect(friendsLoad).toBeCalledWith('def456')
             expect(mockDispatch).toBeCalledWith('mock friendsLoad')
         })
     })

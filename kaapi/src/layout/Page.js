@@ -1,6 +1,6 @@
 import React from 'react'
 
-import styles from './Page.module.css'
+import styles from './Page.module.scss'
 
 export default ({children}) => (
     <div className={styles.page}>

@@ -1,0 +1,10 @@
+.item {
+
+  &:link, &:visited {
+    color: inherit;
+  }
+
+  &:hover, &:active {
+    color: rebeccapurple;
+  }
+}

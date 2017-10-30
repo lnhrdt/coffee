@@ -1,0 +1,39 @@
+.adder {
+  display: flex;
+  overflow: hidden;
+}
+
+.input {
+  padding: 0.25rem;
+  transition: box-shadow 0.25s, border-color 0.25s;
+  flex-grow: 1;
+  min-width: 0;
+  outline: none;
+
+  border: 1px solid lightsteelblue;
+  box-shadow: inset 0 0 4px lightsteelblue, 0 0 0 transparent;
+
+  &:focus {
+    box-shadow: inset 0 0 0 transparent, 0 0 4px lightsteelblue;
+  }
+}
+
+.inputError {
+  padding: 0.25rem;
+  transition: box-shadow 0.25s, border-color 0.25s;
+  flex-grow: 1;
+  min-width: 0;
+  outline: none;
+
+  border: 1px solid red;
+  box-shadow: none;
+}
+
+.inputError:focus {
+  box-shadow: inset 0 0 0 transparent, 0 0 4px green;
+}
+
+.error {
+  font-style: italic;
+  color: red;
+}

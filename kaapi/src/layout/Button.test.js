@@ -49,7 +49,9 @@ describe('Button', () => {
                 const subject = shallow(<Button {...mockProps}/>)
                 subject.find('button').simulate('click')
                 // TODO: once we can import SVG as a component with svg-react-loader
-                // https://github.com/kitze/custom-react-scripts/issues/59
+                // use react-app-rewired and write a svg-react-loader rewire
+                // https://github.com/timarney/react-app-rewired
+                // https://github.com/jhamlet/svg-react-loader
                 // expect(subject.find('button').find(svg).exists()).toBe(true)
             })
 

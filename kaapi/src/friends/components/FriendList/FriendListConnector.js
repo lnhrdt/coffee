@@ -5,14 +5,20 @@ import friendSort from '../../friendSort'
 
 export default (WrappedComponent) => {
 
-    const mapStateToProps = (state) => ({
-        friends: friendSort(state.friends)
-    })
+    const mapStateToProps = (state, ownProps) => {
+        const groupId = ownProps.match.params.groupId
+        const unsortedFriends = state.friends && state.friends[groupId]
+        const friends = (unsortedFriends && friendSort(unsortedFriends)) || []
+        return {friends}
+    }
 
-    const mapDispatchToProps = (dispatch) => ({
-        friendsLoad: () => Promise.resolve(dispatch(friendsLoad())),
-        recordCoffee: (...args) => Promise.resolve(dispatch(recordCoffee(...args)))
-    })
+    const mapDispatchToProps = (dispatch, ownProps) => {
+        const groupId = ownProps.match.params.groupId
+        return {
+            friendsLoad: () => groupId && Promise.resolve(dispatch(friendsLoad(groupId))),
+            recordCoffee: (...args) => Promise.resolve(dispatch(recordCoffee(...args)))
+        }
+    }
 
     return connect(mapStateToProps, mapDispatchToProps)(WrappedComponent)
 }

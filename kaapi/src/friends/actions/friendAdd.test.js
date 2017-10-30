@@ -14,8 +14,10 @@ describe('friendAdd', () => {
         friendsLoad.mockReturnValueOnce('mock friendsLoad')
         const mockDispatch = jest.fn()
 
-        return friendAdd('Johnathon Britz')(mockDispatch).then(() => {
-            expect(friendCreate).toBeCalledWith({name: 'Johnathon Britz'})
+        const request = {name: 'Johnathon Britz', groupId: 'abc123'}
+        return friendAdd(request)(mockDispatch).then(() => {
+            expect(friendCreate).toBeCalledWith(request)
+            expect(friendsLoad).toBeCalledWith('abc123')
             expect(mockDispatch).toBeCalledWith('mock friendsLoad')
         })
     })

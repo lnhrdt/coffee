@@ -25,7 +25,9 @@ describe('FriendListItem', () => {
             expect(button.prop('action')).toBeDefined()
 
             // TODO: once we can import SVG as a component with svg-react-loader
-            // https://github.com/kitze/custom-react-scripts/issues/59
+            // use react-app-rewired and write a svg-react-loader rewire
+            // https://github.com/timarney/react-app-rewired
+            // https://github.com/jhamlet/svg-react-loader
             // expect(button.prop('action')).toEqual(svg)
         })
 

@@ -11,42 +11,35 @@ describe('friendsGet', () => {
         {id: 3, name: 'John Ryan'}
     ]
 
-    describe('when the API returns friends', () => {
-        it('should fetch friends from the API', () => {
-            fetchMock.mock({
-                method: 'GET',
-                matcher: '/api/friends',
-                response: {
-                    body: {data: friends},
-                    status: 200
-                }
-            })
-
-            return friendsGet().then(() => {
-                expect(fetchMock.lastUrl()).toEqual('/api/friends')
-                expect(fetchMock.lastOptions().method).toEqual('GET')
-                expect(fetchMock.lastOptions().headers).toEqual({'Content-Type': 'application/json'})
-            })
+    it('should fetch friends from the API', () => {
+        fetchMock.mock({
+            method: 'GET',
+            matcher: '/api/groups/abc123/friends',
+            response: {
+                body: {data: friends},
+                status: 200
+            }
         })
 
-        describe('when the responds successfully', () => {
-            beforeEach(() => fetchMock.mock({
-                method: 'GET',
-                matcher: '/api/friends',
-                response: {
-                    body: {data: friends},
-                    status: 200
-                }
-            }))
+        return friendsGet('abc123').then(() => {
+            expect(fetchMock.lastUrl()).toEqual('/api/groups/abc123/friends')
+            expect(fetchMock.lastOptions().method).toEqual('GET')
+            expect(fetchMock.lastOptions().headers).toEqual({'Content-Type': 'application/json'})
+        })
+    })
 
-            it('should return friends from the API', () => {
-                // TODO jest v20
-                // return friendsGet().resolves.toEqual(friends)
+    describe('when the API responds successfully', () => {
+        beforeEach(() => fetchMock.mock({
+            method: 'GET',
+            matcher: '/api/groups/abc123/friends',
+            response: {
+                body: {data: friends},
+                status: 200
+            }
+        }))
 
-                return friendsGet().then((result) => {
-                    expect(result).toEqual(friends)
-                })
-            })
+        it('should return friends from the API', () => {
+            return expect(friendsGet('abc123')).resolves.toEqual(friends)
         })
     })
 })

@@ -1,4 +1,4 @@
-package io.leonhardt.coffee.latte.friends
+package io.leonhardt.coffee.latte.groups
 
 import io.github.codebandits.results.Result
 import io.github.codebandits.results.Success
@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class FriendGetAllService {
+class GroupGetAllService {
 
     @Transactional
-    fun getAll(): Result<Errors, List<Friend>> {
-        val friends = FriendEntity.all().map { it.toFriend() }
-        return Success(friends)
+    fun getAll(): Result<Errors, List<Group>> {
+        val groups = GroupEntity.all().map { it.toGroup() }
+        return Success(groups)
     }
 }

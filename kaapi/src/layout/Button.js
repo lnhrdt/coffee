@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './Button.module.css'
+import styles from './Button.module.scss'
 
 const loader = (
     <svg className={styles.loader} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
@@ -12,10 +12,9 @@ export default class extends React.Component {
     constructor(props) {
         super(props)
         this.state = {submitting: false}
-        this.clickHandler = this.clickHandler.bind(this)
     }
 
-    clickHandler() {
+    clickHandler = () => {
         const clickResult = this.props.clickHandler()
         if (clickResult instanceof Promise) {
             this.setState({submitting: true})
