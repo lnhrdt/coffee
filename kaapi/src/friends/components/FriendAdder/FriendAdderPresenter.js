@@ -10,7 +10,7 @@ export default ({value, valueChange, submit, submitting, error}) => (
                    onChange={valueChange} disabled={submitting}
                    className={error ? styles.inputError : styles.input}
             />
-            <Button action="Add" clickHandler={submit}/>
+            <Button clickHandler={submit}>Add</Button>
         </div>
         <div className={styles.error}>{error}</div>
     </div>
