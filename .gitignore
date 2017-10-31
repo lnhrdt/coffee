@@ -2,7 +2,6 @@
 build/
 classes/
 out/
-node_modules/
 
 !gradle/wrapper/gradle-wrapper.jar
 
