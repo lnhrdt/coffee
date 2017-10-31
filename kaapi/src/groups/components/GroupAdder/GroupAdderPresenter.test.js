@@ -15,7 +15,7 @@ describe('GroupAdderPresenter', () => {
         const subject = shallow(<GroupAdderPresenter {...mockProps}/>)
         const button = subject.find(Button)
 
-        expect(button.prop('action')).toEqual('Add')
+        expect(button.children()).toHaveText('Add')
         expect(button.prop('clickHandler')).toEqual(mockProps.submit)
     })
 

@@ -10,7 +10,7 @@ describe('GroupListItem', () => {
     it('should render the group name', () => {
         const subject = shallow(<GroupListItem {...mockProps}/>)
 
-        expect(subject.find(Link).children().text()).toContain('Seattle')
+        expect(subject.find(Link).children()).toHaveText('Seattle')
     })
 
     it('should link to the group', () => {

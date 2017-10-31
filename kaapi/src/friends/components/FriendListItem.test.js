@@ -14,7 +14,7 @@ describe('FriendListItem', () => {
     it('should render the friends name', () => {
         const subject = shallow(<FriendListItem {...mockProps}/>)
 
-        expect(subject.text()).toContain(mockProps.friend.name)
+        expect(subject).toIncludeText(mockProps.friend.name)
     })
 
     describe('rendering the submit button', () => {
@@ -38,7 +38,7 @@ describe('FriendListItem', () => {
         it('should render text to indicate the friend has no coffees', () => {
             const subject = shallow(<FriendListItem {...mockProps}/>)
 
-            expect(subject.text()).toContain('never')
+            expect(subject).toIncludeText('never')
         })
     })
 
@@ -48,7 +48,7 @@ describe('FriendListItem', () => {
         it('should render how long since the last coffee', () => {
             const subject = shallow(<FriendListItem {...mockProps}/>)
 
-            expect(subject.text()).toContain('9 days ago')
+            expect(subject).toIncludeText('9 days ago')
         })
     })
 })

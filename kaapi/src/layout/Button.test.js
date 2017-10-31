@@ -25,7 +25,7 @@ describe('Button', () => {
 
             it('should render action', () => {
                 const subject = shallow(<Button {...mockProps}>Do It</Button>)
-                expect(subject.find('button').text()).toEqual('Do It')
+                expect(subject.find('button')).toHaveText('Do It')
             })
         })
     })
@@ -58,7 +58,7 @@ describe('Button', () => {
 
                     return clickHandlerPromise.then(() => {
                         subject.update()
-                        expect(subject.find('button').text()).toEqual('Do It')
+                        expect(subject.find('button')).toHaveText('Do It')
                     })
                 })
             })
