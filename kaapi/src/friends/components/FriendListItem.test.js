@@ -22,13 +22,7 @@ describe('FriendListItem', () => {
             const subject = shallow(<FriendListItem {...mockProps}/>)
             const button = subject.find(Button)
 
-            expect(button.prop('action')).toBeDefined()
-
-            // TODO: once we can import SVG as a component with svg-react-loader
-            // use react-app-rewired and write a svg-react-loader rewire
-            // https://github.com/timarney/react-app-rewired
-            // https://github.com/jhamlet/svg-react-loader
-            // expect(button.prop('action')).toEqual(svg)
+            expect(button.childAt(0)).toHaveTagName('coffee.svg')
         })
 
         it('should pass a clickHandler that calls recordCoffee with friend', () => {

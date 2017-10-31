@@ -7,7 +7,6 @@ describe('Button', () => {
 
     beforeEach(() => {
         mockProps = {
-            action: 'Do It',
             clickHandler: jest.fn()
         }
     })
@@ -25,8 +24,8 @@ describe('Button', () => {
             })
 
             it('should render action', () => {
-                const subject = shallow(<Button {...mockProps}/>)
-                expect(subject.find('button').text()).toContain(mockProps.action)
+                const subject = shallow(<Button {...mockProps}>Do It</Button>)
+                expect(subject.find('button').text()).toEqual('Do It')
             })
         })
     })
@@ -48,22 +47,18 @@ describe('Button', () => {
             it('should render a spinner', () => {
                 const subject = shallow(<Button {...mockProps}/>)
                 subject.find('button').simulate('click')
-                // TODO: once we can import SVG as a component with svg-react-loader
-                // use react-app-rewired and write a svg-react-loader rewire
-                // https://github.com/timarney/react-app-rewired
-                // https://github.com/jhamlet/svg-react-loader
-                // expect(subject.find('button').find(svg).exists()).toBe(true)
+                expect(subject.find('button').childAt(0)).toHaveTagName('loader.svg')
             })
 
             describe('when the Promise resolves', () => {
                 it('should render action', () => {
-                    const subject = shallow(<Button {...mockProps}/>)
+                    const subject = shallow(<Button {...mockProps}>Do It</Button>)
                     subject.find('button').simulate('click')
                     clickHandlerResolve()
 
                     return clickHandlerPromise.then(() => {
                         subject.update()
-                        expect(subject.find('button').text()).toContain(mockProps.action)
+                        expect(subject.find('button').text()).toEqual('Do It')
                     })
                 })
             })
