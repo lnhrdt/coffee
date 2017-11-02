@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import {shallow} from 'enzyme'
 import FriendListPresenter from './FriendListPresenter'
 import FriendListItem from '../FriendListItem'

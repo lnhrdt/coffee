@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import {shallow} from 'enzyme'
 import GroupAdderPresenter from './GroupAdderPresenter'
 import Button from '../../../layout/Button'
