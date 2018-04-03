@@ -2,10 +2,14 @@ import friendSort from './friendSort'
 
 describe('friendSort', () => {
     const unsortedFriends = [
-        {name: 'Austin Vance', coffees: [{dateTime: 200}, {dateTime: 100}, {dateTime: 300}]},
-        {name: 'David Julia', coffees: [{dateTime: 50}]},
-        {name: 'Luke Mueller', coffees: [{dateTime: 300}]},
-        {name: 'Anthony Tarantini', coffees: [{dateTime: 300}]},
+        {name: 'Austin Vance', coffees: [
+            {dateTime: '2010-01-03T00:00:00.000Z'},
+            {dateTime: '2010-01-02T00:00:00.000Z'},
+            {dateTime: '2010-01-04T00:00:00.000Z'}
+        ]},
+        {name: 'David Julia', coffees: [{dateTime: '2010-01-01T00:00:00.000Z'}]},
+        {name: 'Luke Mueller', coffees: [{dateTime: '2010-01-04T00:00:00.000Z'}]},
+        {name: 'Anthony Tarantini', coffees: [{dateTime: '2010-01-04T00:00:00.000Z'}]},
         {name: 'Utsav Sethi', coffees: []},
     ]
 
@@ -14,9 +18,9 @@ describe('friendSort', () => {
 
         const sortedAustin = result.find(friend => friend.name === 'Austin Vance')
 
-        expect(sortedAustin.coffees[0].dateTime).toEqual(300)
-        expect(sortedAustin.coffees[1].dateTime).toEqual(200)
-        expect(sortedAustin.coffees[2].dateTime).toEqual(100)
+        expect(sortedAustin.coffees[0].dateTime).toEqual('2010-01-04T00:00:00.000Z')
+        expect(sortedAustin.coffees[1].dateTime).toEqual('2010-01-03T00:00:00.000Z')
+        expect(sortedAustin.coffees[2].dateTime).toEqual('2010-01-02T00:00:00.000Z')
     })
 
     it('should sort the friends by least recent coffee and name', () => {
