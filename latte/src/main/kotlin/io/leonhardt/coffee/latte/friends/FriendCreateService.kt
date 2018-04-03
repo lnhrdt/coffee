@@ -2,6 +2,8 @@ package io.leonhardt.coffee.latte.friends
 
 import arrow.core.Either
 import arrow.core.flatMap
+import io.github.codebandits.beak.findByIdOrError
+import io.github.codebandits.beak.newOrError
 import io.leonhardt.coffee.latte.Errors
 import io.leonhardt.coffee.latte.groups.GroupEntity
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -12,19 +14,17 @@ class FriendCreateService(val friendCreateRequestValidator: FriendCreateRequestV
 
     fun create(friendNew: FriendNew): Either<Errors, Friend> = transaction {
         val groupId = friendNew.groupId.toString()
-        val foundGroup = GroupEntity.findById(groupId)
-        when (foundGroup) {
-            null -> Either.left(mapOf("groupId" to "groupId $groupId not found"))
-            else -> Either.right(foundGroup)
-        }
-            .flatMap { groupEntity ->
-                friendCreateRequestValidator.validate(friendNew)
-                    .map { validFriendNew ->
-                        FriendEntity.new {
+
+        friendCreateRequestValidator.validate(friendNew)
+            .flatMap { validFriendNew ->
+                GroupEntity.findByIdOrError(groupId)
+                    .flatMap { groupEntity ->
+                        FriendEntity.newOrError {
                             name = validFriendNew.name
                             group = groupEntity
                         }
                     }
+                    .mapLeft { mapOf("groupId" to "groupId $groupId not found") }
             }
             .map { it.toFriend() }
     }

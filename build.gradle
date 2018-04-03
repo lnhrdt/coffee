@@ -17,6 +17,7 @@ allprojects {
     repositories {
         mavenCentral()
         maven { url "https://jitpack.io" }
+        maven { url "https://dl.bintray.com/codebandits/beak" }
         maven { url "https://dl.bintray.com/kotlin/exposed" }
     }
 }

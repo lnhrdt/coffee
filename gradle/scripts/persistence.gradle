@@ -1,6 +1,6 @@
 dependencies {
   compile('org.springframework.boot:spring-boot-starter-jdbc')
-  compile("org.jetbrains.exposed:exposed:$exposedVersion")
+  compile("io.github.codebandits:beak:$beakVersion")
   compile('org.flywaydb:flyway-core')
   runtime('mysql:mysql-connector-java')
 }
