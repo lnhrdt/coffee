@@ -1,9 +1,6 @@
 package io.leonhardt.coffee.latte.coffee
 
-import io.github.codebandits.results.Result
-import io.github.codebandits.results.adapters.presenceAsResult
-import io.github.codebandits.results.map
-import io.github.codebandits.results.mapError
+import arrow.core.Either
 import io.leonhardt.coffee.latte.Errors
 import io.leonhardt.coffee.latte.friends.FriendEntity
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -14,11 +11,13 @@ import java.time.Instant
 @Service
 class CoffeeCreateService {
 
-    fun create(coffeeNew: CoffeeNew): Result<Errors, Coffee> = transaction {
+    fun create(coffeeNew: CoffeeNew): Either<Errors, Coffee> = transaction {
         val friendId = coffeeNew.friendId.toString()
-        FriendEntity.findById(friendId)
-            .presenceAsResult()
-            .mapError { mapOf("friendId" to "friendId $friendId not found") }
+        val foundFriend = FriendEntity.findById(friendId)
+        when (foundFriend) {
+            null -> Either.left(mapOf("friendId" to "friendId $friendId not found"))
+            else -> Either.right(foundFriend)
+        }
             .map { friendEntity ->
                 CoffeeEntity.new {
                     friend = friendEntity

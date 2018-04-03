@@ -1,9 +1,8 @@
 package io.leonhardt.coffee.latte.friends
 
+import arrow.core.Either
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import io.github.codebandits.results.Failure
-import io.github.codebandits.results.Success
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.Test
 import org.springframework.test.web.servlet.MockMvc
@@ -28,7 +27,7 @@ class FriendFindAllByGroupControllerTest {
                 Friend(id = UUID.randomUUID(), name = "Rodolfo Sanchez", coffees = emptyList(), groupId = groupId)
         )
 
-        whenever(friendFindAllByGroupService.findAllByGroup(groupId)).thenReturn(Success(friends))
+        whenever(friendFindAllByGroupService.findAllByGroup(groupId)).thenReturn(Either.right(friends))
 
         mockMvc.perform(get("/api/groups/$groupId/friends"))
                 .andExpect(status().isOk)
@@ -39,7 +38,7 @@ class FriendFindAllByGroupControllerTest {
     fun `when service fails, returns the errors`() {
         val groupId = UUID.randomUUID()
         val errors = mapOf("mistake" to "you did it wrong")
-        whenever(friendFindAllByGroupService.findAllByGroup(groupId)).thenReturn(Failure(errors))
+        whenever(friendFindAllByGroupService.findAllByGroup(groupId)).thenReturn(Either.left(errors))
 
         mockMvc.perform(get("/api/groups/$groupId/friends"))
                 .andExpect(status().isBadRequest)

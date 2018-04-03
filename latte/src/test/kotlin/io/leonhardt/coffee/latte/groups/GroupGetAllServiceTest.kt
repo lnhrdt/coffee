@@ -1,9 +1,9 @@
 package io.leonhardt.coffee.latte.groups
 
-import io.github.codebandits.results.succeedsAnd
 import io.leonhardt.coffee.latte.DatabaseTest
-import org.hamcrest.MatcherAssert
-import org.hamcrest.Matchers
+import io.leonhardt.coffee.latte.support.assertRight
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
@@ -15,16 +15,15 @@ class GroupGetAllServiceTest(
 
     @Test
     fun `returns the Groups`() {
-        val groups = listOf(
+        val newGroups = listOf(
             GroupNew(name = "Boulder"),
             GroupNew(name = "Denver")
         )
-        groups.forEach { groupCreateService.create(it) }
+        newGroups.forEach { groupCreateService.create(it) }
 
-        subject.getAll() succeedsAnd {
-            MatcherAssert.assertThat(it, Matchers.hasSize(2))
-            MatcherAssert.assertThat(it, Matchers.hasItem(Matchers.hasProperty("name", Matchers.equalTo("Boulder"))))
-            MatcherAssert.assertThat(it, Matchers.hasItem(Matchers.hasProperty("name", Matchers.equalTo("Denver"))))
-        }
+        val groups = subject.getAll().assertRight()
+        assertThat(groups, hasSize(2))
+        assertThat(groups, hasItem(hasProperty("name", equalTo("Boulder"))))
+        assertThat(groups, hasItem(hasProperty("name", equalTo("Denver"))))
     }
 }

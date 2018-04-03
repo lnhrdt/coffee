@@ -1,9 +1,8 @@
 package io.leonhardt.coffee.latte.friends
 
+import arrow.core.Either
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import io.github.codebandits.results.Failure
-import io.github.codebandits.results.Success
 import io.leonhardt.coffee.latte.support.asJson
 import org.hamcrest.Matchers.*
 import org.junit.jupiter.api.Test
@@ -26,7 +25,7 @@ class FriendCreateControllerTest {
         val groupId = UUID.randomUUID()
         val request = FriendNew(name = "William Ramsey", groupId = groupId)
         val friend = Friend(id = UUID.randomUUID(), name = "William Ramsey", coffees = emptyList(), groupId = groupId)
-        whenever(friendCreateService.create(request)).thenReturn(Success(friend))
+        whenever(friendCreateService.create(request)).thenReturn(Either.right(friend))
 
         mockMvc.perform(post("/api/friends")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -41,7 +40,7 @@ class FriendCreateControllerTest {
         val groupId = UUID.randomUUID()
         val request = FriendNew(name = "William Ramsey", groupId = groupId)
         val errors = mapOf("mistake" to "you did it wrong")
-        whenever(friendCreateService.create(request)).thenReturn(Failure(errors))
+        whenever(friendCreateService.create(request)).thenReturn(Either.left(errors))
 
         mockMvc.perform(post("/api/friends")
                 .contentType(MediaType.APPLICATION_JSON)

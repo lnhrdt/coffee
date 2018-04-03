@@ -1,8 +1,9 @@
 package io.leonhardt.coffee.latte.friends
 
-import io.github.codebandits.results.failsAnd
-import io.github.codebandits.results.succeedsWith
+import io.leonhardt.coffee.latte.support.assertLeft
+import io.leonhardt.coffee.latte.support.assertRight
 import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.equalTo
 import org.hamcrest.Matchers.hasEntry
 import org.junit.jupiter.api.Test
 import java.util.*
@@ -14,13 +15,12 @@ class FriendCreateRequestValidatorTest {
     @Test
     fun `when firstName is present, succeeds`() {
         val friendNew = FriendNew(name = "Angela Chin", groupId = UUID.randomUUID())
-        subject.validate(friendNew) succeedsWith friendNew
+        assertThat(subject.validate(friendNew).assertRight(), equalTo(friendNew))
     }
 
     @Test
     fun `when firstName is is "", fails`() {
-        subject.validate(FriendNew(name = "", groupId = UUID.randomUUID())) failsAnd { errors ->
-            assertThat(errors, hasEntry("name", "Required"))
-        }
+        val errors = subject.validate(FriendNew(name = "", groupId = UUID.randomUUID())).assertLeft()
+        assertThat(errors, hasEntry("name", "Required"))
     }
 }

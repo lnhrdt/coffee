@@ -1,0 +1,4 @@
+dependencies {
+    compile("io.arrow-kt:arrow-core:$arrowVersion")
+    compile("io.arrow-kt:arrow-data:$arrowVersion")
+}

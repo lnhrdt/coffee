@@ -1,9 +1,8 @@
 package io.leonhardt.coffee.latte.groups
 
+import arrow.core.Either
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import io.github.codebandits.results.Failure
-import io.github.codebandits.results.Success
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.Test
 import org.springframework.test.web.servlet.MockMvc
@@ -26,7 +25,7 @@ class GroupGetAllControllerTest {
                 Group(id = UUID.randomUUID(), name = "Group 3", friends = emptyList())
         )
 
-        whenever(groupGetAllService.getAll()).thenReturn(Success(groups))
+        whenever(groupGetAllService.getAll()).thenReturn(Either.right(groups))
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/groups"))
                 .andExpect(MockMvcResultMatchers.status().isOk)
@@ -36,7 +35,7 @@ class GroupGetAllControllerTest {
     @Test
     fun `when service fails, returns the errors`() {
         val errors = mapOf("mistake" to "you did it wrong")
-        whenever(groupGetAllService.getAll()).thenReturn(Failure(errors))
+        whenever(groupGetAllService.getAll()).thenReturn(Either.left(errors))
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/groups"))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest)

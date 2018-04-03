@@ -1,7 +1,7 @@
 package io.leonhardt.coffee.latte
 
-import io.github.codebandits.results.Result
+import arrow.core.Either
 
 interface Validator<DataType> {
-    fun validate(data: DataType): Result<Errors, DataType>
+    fun validate(data: DataType): Either<Errors, DataType>
 }

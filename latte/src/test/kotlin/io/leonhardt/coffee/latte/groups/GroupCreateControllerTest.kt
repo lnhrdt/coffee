@@ -1,9 +1,8 @@
 package io.leonhardt.coffee.latte.groups
 
+import arrow.core.Either
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import io.github.codebandits.results.Failure
-import io.github.codebandits.results.Success
 import io.leonhardt.coffee.latte.support.asJson
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.Test
@@ -24,7 +23,7 @@ class GroupCreateControllerTest {
     fun `when service succeeds, returns the Group`() {
         val request = GroupNew(name = "Singapore")
         val group = Group(id = UUID.randomUUID(), name = "Singapore", friends = emptyList())
-        whenever(groupCreateService.create(request)).thenReturn(Success(group))
+        whenever(groupCreateService.create(request)).thenReturn(Either.right(group))
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/groups")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -38,7 +37,7 @@ class GroupCreateControllerTest {
     fun `when service fails, returns the errors`() {
         val request = GroupNew(name = "Singapore")
         val errors = mapOf("mistake" to "you did it wrong")
-        whenever(groupCreateService.create(request)).thenReturn(Failure(errors))
+        whenever(groupCreateService.create(request)).thenReturn(Either.left(errors))
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/groups")
                 .contentType(MediaType.APPLICATION_JSON)
