@@ -4,7 +4,7 @@ import io.github.codebandits.results.failsAnd
 import io.github.codebandits.results.succeedsWith
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.hasEntry
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import java.util.*
 
 class FriendCreateRequestValidatorTest {

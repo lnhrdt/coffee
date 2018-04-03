@@ -1,8 +1,6 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven { url "https://repo.spring.io/snapshot" }
-        maven { url "https://repo.spring.io/milestone" }
     }
 
     dependencies {
@@ -18,8 +16,6 @@ allprojects {
 
     repositories {
         mavenCentral()
-        maven { url "https://repo.spring.io/snapshot" }
-        maven { url "https://repo.spring.io/milestone" }
         maven { url "https://jitpack.io" }
         maven { url "https://dl.bintray.com/kotlin/exposed" }
     }

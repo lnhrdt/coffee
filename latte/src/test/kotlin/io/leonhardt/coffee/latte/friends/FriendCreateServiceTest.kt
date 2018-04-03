@@ -1,34 +1,28 @@
 package io.leonhardt.coffee.latte.friends
 
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.whenever
-import io.github.codebandits.results.*
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.whenever
+import io.github.codebandits.results.Failure
+import io.github.codebandits.results.Success
+import io.github.codebandits.results.failsAnd
+import io.github.codebandits.results.succeeds
+import io.github.codebandits.results.succeedsAnd
+import io.leonhardt.coffee.latte.DatabaseTest
 import io.leonhardt.coffee.latte.groups.GroupCreateService
 import io.leonhardt.coffee.latte.groups.GroupNew
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.empty
 import org.hamcrest.Matchers.equalTo
-import org.junit.Test
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.junit4.SpringRunner
-import org.springframework.transaction.annotation.Transactional
-import java.util.*
 
-@RunWith(SpringRunner::class)
-@SpringBootTest
-@ActiveProfiles("test")
-@Transactional
-class FriendCreateServiceTest {
+class FriendCreateServiceTest(
+    @Autowired val groupCreateService: GroupCreateService
+) : DatabaseTest() {
 
     val friendCreateRequestValidator: FriendCreateRequestValidator = mock()
 
     val subject: FriendCreateService = FriendCreateService(friendCreateRequestValidator)
-
-    @Autowired
-    lateinit var groupCreateService: GroupCreateService
 
     @Test
     fun `when validator succeeds, returns the persisted Friend`() {

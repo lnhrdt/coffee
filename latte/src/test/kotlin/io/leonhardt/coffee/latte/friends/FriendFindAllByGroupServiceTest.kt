@@ -3,29 +3,18 @@ package io.leonhardt.coffee.latte.friends
 import io.github.codebandits.results.succeeds
 import io.github.codebandits.results.succeedsAnd
 import io.github.codebandits.results.traverse
+import io.leonhardt.coffee.latte.DatabaseTest
 import io.leonhardt.coffee.latte.groups.GroupCreateService
 import io.leonhardt.coffee.latte.groups.GroupNew
 import org.hamcrest.MatcherAssert
 import org.hamcrest.Matchers
-import org.junit.Test
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.junit4.SpringRunner
-import org.springframework.transaction.annotation.Transactional
 
-@RunWith(SpringRunner::class)
-@SpringBootTest
-@ActiveProfiles("test")
-@Transactional
-class FriendFindAllByGroupServiceTest {
-
-    @Autowired
-    lateinit var friendCreateService: FriendCreateService
-
-    @Autowired
-    lateinit var groupCreateService: GroupCreateService
+class FriendFindAllByGroupServiceTest(
+    @Autowired private val friendCreateService: FriendCreateService,
+    @Autowired private val groupCreateService: GroupCreateService
+) : DatabaseTest() {
 
     val subject = FriendFindAllByGroupService()
 

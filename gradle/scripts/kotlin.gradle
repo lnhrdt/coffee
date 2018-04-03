@@ -20,5 +20,7 @@ dependencies {
   compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
   compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
   compile('com.fasterxml.jackson.module:jackson-module-kotlin')
-  testCompile("com.nhaarman:mockito-kotlin-kt1.1:${mockitoKotlinVersion}")
+  testCompile("com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion") {
+    exclude group: "org.jetbrains.kotlin"
+  }
 }

@@ -1,12 +1,12 @@
 package io.leonhardt.coffee.latte.coffee
 
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.whenever
 import io.github.codebandits.results.Failure
 import io.github.codebandits.results.Success
 import io.leonhardt.coffee.latte.support.asJson
 import org.hamcrest.Matchers.*
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post

@@ -1,32 +1,23 @@
 package io.leonhardt.coffee.latte.groups
 
 import io.github.codebandits.results.succeedsAnd
+import io.leonhardt.coffee.latte.DatabaseTest
 import org.hamcrest.MatcherAssert
 import org.hamcrest.Matchers
-import org.junit.Test
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.junit4.SpringRunner
-import org.springframework.transaction.annotation.Transactional
 
-@RunWith(SpringRunner::class)
-@SpringBootTest
-@ActiveProfiles("test")
-@Transactional
-class GroupGetAllServiceTest {
-
-    @Autowired
-    lateinit var groupCreateService: GroupCreateService
+class GroupGetAllServiceTest(
+    @Autowired private val groupCreateService: GroupCreateService
+) : DatabaseTest() {
 
     val subject: GroupGetAllService = GroupGetAllService()
 
     @Test
     fun `returns the Groups`() {
         val groups = listOf(
-                GroupNew(name = "Boulder"),
-                GroupNew(name = "Denver")
+            GroupNew(name = "Boulder"),
+            GroupNew(name = "Denver")
         )
         groups.forEach { groupCreateService.create(it) }
 

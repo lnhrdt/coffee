@@ -43,7 +43,7 @@ describe('FriendListItem', () => {
     })
 
     describe('when the friend has coffees', () => {
-        beforeEach(() => mockProps.friend.coffees = [{dateTime: moment().subtract(9, 'days').unix()}])
+        beforeEach(() => mockProps.friend.coffees = [{dateTime: moment().subtract(9, 'days').format('YYYY-MM-DDTHH:mm:ss.SSSZ')}])
 
         it('should render how long since the last coffee', () => {
             const subject = shallow(<FriendListItem {...mockProps}/>)
