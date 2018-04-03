@@ -22,16 +22,16 @@ class FriendFindAllByGroupControllerTest {
     fun `when service succeeds, returns the Friends`() {
         val groupId = UUID.randomUUID()
         val friends = listOf(
-                Friend(id = UUID.randomUUID(), name = "Thomas Shouler", coffees = emptyList(), groupId = groupId),
-                Friend(id = UUID.randomUUID(), name = "Alex Thornburg", coffees = emptyList(), groupId = groupId),
-                Friend(id = UUID.randomUUID(), name = "Rodolfo Sanchez", coffees = emptyList(), groupId = groupId)
+            Friend(id = UUID.randomUUID(), name = "Thomas Shouler", coffees = emptyList(), groupId = groupId),
+            Friend(id = UUID.randomUUID(), name = "Alex Thornburg", coffees = emptyList(), groupId = groupId),
+            Friend(id = UUID.randomUUID(), name = "Rodolfo Sanchez", coffees = emptyList(), groupId = groupId)
         )
 
         whenever(friendFindAllByGroupService.findAllByGroup(groupId)).thenReturn(Either.right(friends))
 
         mockMvc.perform(get("/api/groups/$groupId/friends"))
-                .andExpect(status().isOk)
-                .andExpect(jsonPath("$.data.length()").value(3))
+            .andExpect(status().isOk)
+            .andExpect(jsonPath("$.data.length()").value(3))
     }
 
     @Test
@@ -41,9 +41,9 @@ class FriendFindAllByGroupControllerTest {
         whenever(friendFindAllByGroupService.findAllByGroup(groupId)).thenReturn(Either.left(errors))
 
         mockMvc.perform(get("/api/groups/$groupId/friends"))
-                .andExpect(status().isBadRequest)
-                .andExpect(jsonPath("$", Matchers.not(Matchers.hasKey("data"))))
-                .andExpect(jsonPath("$.errors.length()", Matchers.equalTo(1)))
-                .andExpect(jsonPath("$.errors.mistake", Matchers.equalTo("you did it wrong")))
+            .andExpect(status().isBadRequest)
+            .andExpect(jsonPath("$", Matchers.not(Matchers.hasKey("data"))))
+            .andExpect(jsonPath("$.errors.length()", Matchers.equalTo(1)))
+            .andExpect(jsonPath("$.errors.mistake", Matchers.equalTo("you did it wrong")))
     }
 }

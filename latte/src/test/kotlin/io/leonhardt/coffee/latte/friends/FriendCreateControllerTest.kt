@@ -27,12 +27,10 @@ class FriendCreateControllerTest {
         val friend = Friend(id = UUID.randomUUID(), name = "William Ramsey", coffees = emptyList(), groupId = groupId)
         whenever(friendCreateService.create(request)).thenReturn(Either.right(friend))
 
-        mockMvc.perform(post("/api/friends")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(request.asJson))
-                .andExpect(status().isOk)
-                .andExpect(jsonPath("$.data.id", equalTo(friend.id.toString())))
-                .andExpect(jsonPath("$", not(hasKey("errors"))))
+        mockMvc.perform(post("/api/friends").contentType(MediaType.APPLICATION_JSON).content(request.asJson))
+            .andExpect(status().isOk)
+            .andExpect(jsonPath("$.data.id", equalTo(friend.id.toString())))
+            .andExpect(jsonPath("$", not(hasKey("errors"))))
     }
 
     @Test
@@ -42,12 +40,10 @@ class FriendCreateControllerTest {
         val errors = mapOf("mistake" to "you did it wrong")
         whenever(friendCreateService.create(request)).thenReturn(Either.left(errors))
 
-        mockMvc.perform(post("/api/friends")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(request.asJson))
-                .andExpect(status().isBadRequest)
-                .andExpect(jsonPath("$", not(hasKey("data"))))
-                .andExpect(jsonPath("$.errors.length()", equalTo(1)))
-                .andExpect(jsonPath("$.errors.mistake", equalTo("you did it wrong")))
+        mockMvc.perform(post("/api/friends").contentType(MediaType.APPLICATION_JSON).content(request.asJson))
+            .andExpect(status().isBadRequest)
+            .andExpect(jsonPath("$", not(hasKey("data"))))
+            .andExpect(jsonPath("$.errors.length()", equalTo(1)))
+            .andExpect(jsonPath("$.errors.mistake", equalTo("you did it wrong")))
     }
 }

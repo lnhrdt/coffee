@@ -13,9 +13,9 @@ import java.util.*
 data class GroupNew(val name: String)
 
 data class Group(
-        val id: UUID,
-        val name: String,
-        val friends: List<Friend>
+    val id: UUID,
+    val name: String,
+    val friends: List<Friend>
 )
 
 object GroupTable : UUIDTable("group_table") {
@@ -29,10 +29,8 @@ class GroupEntity(id: EntityID<String>) : UUIDEntity(id) {
     val friends by FriendEntity referrersOn FriendTable.group
 }
 
-fun GroupEntity.toGroup(): Group {
-    return Group(
-            id = UUID.fromString(id.value),
-            name = name,
-            friends = friends.map { it.toFriend() }
-    )
-}
+fun GroupEntity.toGroup(): Group = Group(
+    id = UUID.fromString(id.value),
+    name = name,
+    friends = friends.map { it.toFriend() }
+)

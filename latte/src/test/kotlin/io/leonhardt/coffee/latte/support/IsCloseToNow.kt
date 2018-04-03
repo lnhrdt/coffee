@@ -15,11 +15,11 @@ class IsCloseToNow(val delta: Duration) : TypeSafeDiagnosingMatcher<Instant>() {
 
         if (difference.abs() > delta) {
             mismatchDescription
-                    .appendValue(item)
-                    .appendText(" was more than ")
-                    .appendValue(delta)
-                    .appendText(" from ")
-                    .appendValue(now)
+                .appendValue(item)
+                .appendText(" was more than ")
+                .appendValue(delta)
+                .appendText(" from ")
+                .appendValue(now)
             return false
         }
 
@@ -28,9 +28,9 @@ class IsCloseToNow(val delta: Duration) : TypeSafeDiagnosingMatcher<Instant>() {
 
     override fun describeTo(description: Description) {
         description.appendText("an Instant within ")
-                .appendValue(delta)
-                .appendText(" of ")
-                .appendValue(now)
+            .appendValue(delta)
+            .appendText(" of ")
+            .appendValue(now)
     }
 }
 

@@ -15,10 +15,10 @@ import java.util.*
 data class FriendNew(val name: String, val groupId: UUID)
 
 data class Friend(
-        val id: UUID,
-        val name: String,
-        val coffees: List<Coffee>,
-        val groupId: UUID
+    val id: UUID,
+    val name: String,
+    val coffees: List<Coffee>,
+    val groupId: UUID
 )
 
 object FriendTable : UUIDTable("friend") {
@@ -34,11 +34,9 @@ class FriendEntity(id: EntityID<String>) : UUIDEntity(id) {
     var group by GroupEntity referencedOn FriendTable.group
 }
 
-fun FriendEntity.toFriend(): Friend {
-    return Friend(
-            id = UUID.fromString(id.value),
-            name = name,
-            coffees = coffees.map { it.toCoffee() },
-            groupId = UUID.fromString(group.id.value)
-    )
-}
+fun FriendEntity.toFriend(): Friend = Friend(
+    id = UUID.fromString(id.value),
+    name = name,
+    coffees = coffees.map { it.toCoffee() },
+    groupId = UUID.fromString(group.id.value)
+)

@@ -11,8 +11,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 @ActiveProfiles("test")
 class LatteApplicationTests {
 
-	@Test
-	fun `context loads`() {
-	}
+    @Test
+    fun `context loads`() {
+    }
 
 }

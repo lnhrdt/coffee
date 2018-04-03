@@ -27,12 +27,10 @@ class CoffeeCreateControllerTest {
         val coffee = Coffee(id = UUID.randomUUID(), friendId = request.friendId, dateTime = Instant.now())
         whenever(coffeeCreateService.create(request)).thenReturn(Either.right(coffee))
 
-        mockMvc.perform(post("/api/coffees")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(request.asJson))
-                .andExpect(status().isOk)
-                .andExpect(jsonPath("$.data.id", equalTo(coffee.id.toString())))
-                .andExpect(jsonPath("$", not(hasKey("errors"))))
+        mockMvc.perform(post("/api/coffees").contentType(MediaType.APPLICATION_JSON).content(request.asJson))
+            .andExpect(status().isOk)
+            .andExpect(jsonPath("$.data.id", equalTo(coffee.id.toString())))
+            .andExpect(jsonPath("$", not(hasKey("errors"))))
     }
 
     @Test
@@ -41,12 +39,10 @@ class CoffeeCreateControllerTest {
         val errors = mapOf("mistake" to "you did it wrong")
         whenever(coffeeCreateService.create(request)).thenReturn(Either.left(errors))
 
-        mockMvc.perform(post("/api/coffees")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(request.asJson))
-                .andExpect(status().isBadRequest)
-                .andExpect(jsonPath("$", not(hasKey("data"))))
-                .andExpect(jsonPath("$.errors.length()", equalTo(1)))
-                .andExpect(jsonPath("$.errors.mistake", equalTo("you did it wrong")))
+        mockMvc.perform(post("/api/coffees").contentType(MediaType.APPLICATION_JSON).content(request.asJson))
+            .andExpect(status().isBadRequest)
+            .andExpect(jsonPath("$", not(hasKey("data"))))
+            .andExpect(jsonPath("$.errors.length()", equalTo(1)))
+            .andExpect(jsonPath("$.errors.mistake", equalTo("you did it wrong")))
     }
 }
