@@ -17,7 +17,7 @@ test {
 }
 
 dependencies {
-  compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
+  compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
   compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
   compile('com.fasterxml.jackson.module:jackson-module-kotlin')
   testCompile("com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion") {
