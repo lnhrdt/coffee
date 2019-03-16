@@ -44,10 +44,10 @@ describe('Button', () => {
                 expect(mockProps.clickHandler).toHaveBeenCalled()
             })
 
-            it('should render a spinner', () => {
-                const subject = shallow(<Button {...mockProps}/>)
+            it('should not render the text before the Promise resolves', () => {
+                const subject = shallow(<Button {...mockProps}>Do It</Button>)
                 subject.find('button').simulate('click')
-                expect(subject.find('button').childAt(0)).toHaveTagName('loader.svg')
+                expect(subject.find('button')).not.toHaveText('Do It')
             })
 
             describe('when the Promise resolves', () => {

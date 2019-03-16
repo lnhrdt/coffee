@@ -9,6 +9,6 @@ export default (friends) => {
         .sort((a, b) => {
             const aDateTime = a.coffees.length ? moment(a.coffees[0].dateTime).valueOf() : 0
             const bDateTime = b.coffees.length ? moment(b.coffees[0].dateTime).valueOf() : 0
-            return aDateTime - bDateTime || a.name > b.name
+            return aDateTime - bDateTime || a.name.localeCompare(b.name)
         })
 }

@@ -3,36 +3,42 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "moment": "^2.22.0",
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0",
-    "react-redux": "^5.0.7",
-    "react-router-dom": "4.2.2",
-    "redux": "3.7.2",
-    "redux-thunk": "2.2.0"
-  },
-  "devDependencies": {
+    "@types/jest": "24.0.11",
+    "@types/node": "11.11.3",
+    "@types/react": "16.8.8",
+    "@types/react-dom": "16.8.2",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.0.2",
-    "fetch-mock": "^6.3.0",
+    "fetch-mock": "^7.3.1",
+    "http-proxy-middleware": "^0.19.1",
     "jest-enzyme": "^6.0.0",
-    "node-sass": "^4.5.3",
-    "normalize.css": "^8.0.0",
-    "react-app-rewire-css-modules": "codebandits/react-app-rewire-css-modules#b5dfb85",
-    "react-app-rewire-svg-react-loader": "codebandits/react-app-rewire-svg-react-loader#188c386",
-    "react-app-rewired": "^1.5.0",
-    "react-scripts": "^1.1.2",
-    "react-test-renderer": "^16.3.0",
-    "redux-devtools": "^3.4.1",
-    "redux-logger": "3.0.6",
-    "redux-mock-store": "^1.5.1",
-    "sass-loader": "^6.0.6"
+    "moment": "^2.24.0",
+    "node-sass": "^4.11.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.4.0",
+    "react-scripts": "2.1.8",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-mock-store": "^1.5.3",
+    "redux-thunk": "^2.3.0",
+    "sanitize.css": "^8.0.0",
+    "typescript": "3.3.3333"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test --env=jsdom",
-    "eject": "react-app-rewired eject"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:8080"
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

@@ -4,7 +4,7 @@ import groupsLoad from '../../actions/groupsLoad'
 export default (WrappedComponent) => {
 
     const mapStateToProps = (state) => ({
-        groups: [...state.groups].sort((a, b) => (a.name > b.name))
+        groups: [...state.groups].sort((a, b) => a.name.localeCompare(b.name))
     })
 
     const mapDispatchToProps = (dispatch) => ({

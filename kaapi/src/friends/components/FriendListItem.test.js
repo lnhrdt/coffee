@@ -18,13 +18,6 @@ describe('FriendListItem', () => {
     })
 
     describe('rendering the submit button', () => {
-        it('should pass actions', () => {
-            const subject = shallow(<FriendListItem {...mockProps}/>)
-            const button = subject.find(Button)
-
-            expect(button.childAt(0)).toHaveTagName('coffee.svg')
-        })
-
         it('should pass a clickHandler that calls recordCoffee with friend', () => {
             const subject = shallow(<FriendListItem {...mockProps}/>)
 

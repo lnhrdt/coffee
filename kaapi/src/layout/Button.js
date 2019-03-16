@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Button.module.scss'
-import Loader from './loader.svg'
+import {ReactComponent as Loader} from './loader.svg'
 
 export default class extends React.Component {
 

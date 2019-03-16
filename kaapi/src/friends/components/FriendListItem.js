@@ -3,7 +3,7 @@ import moment from 'moment'
 
 import styles from './FriendListItem.module.css'
 import Button from '../../layout/Button'
-import Coffee from './coffee.svg'
+import {ReactComponent as Coffee} from './coffee.svg'
 
 export default ({friend, recordCoffee}) => (
     <div className={styles.friend}>
